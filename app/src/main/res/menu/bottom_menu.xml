@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Items in the bottom navigation menu (id must be same as the fragment id) -->
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home_icon" />
+
+    <item
+        android:id="@+id/favouritesFragment"
+        android:icon="@drawable/ic_favourites"
+        android:title="@string/favourites_icon" />
+
+    <item
+        android:id="@+id/categoriesFragment"
+        android:icon="@drawable/ic_categories"
+        android:title="@string/categories_icon" />
+</menu>

@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">YumYum</string>
+
+    <!-- Bottom Menu -->
+    <string name="home_icon">Home</string>
+    <string name="favourites_icon">Favourites</string>
+    <string name="categories_icon">Categories</string>
+
+    <!-- Home Fragment -->
+    <string name="home">Home</string>
+    <string name="search_description">This is search icon</string>
+    <string name="what_would_you_like_to_eat">What would you like to eat?</string>
+    <string name="random_meal_description">Random Meal</string>
+    <string name="over_popular_items">Over Popular Items</string>
+    <string name="categories">Categories</string>
+    <string name="popular_items_description">Popular Items</string>
+    <string name="categories_items_description">Categories Items</string>
+
+    <!-- Favourites Fragment -->
+
+    <!-- Categories Fragment -->
+
+    <!-- Meal Activity -->
+    <string name="meal_image_description">Meal Image</string>
+    <string name="meal_name">Meal Name</string>
+    <string name="fab_description">Add to Favourites</string>
+    <string name="category">Beef</string>
+    <string name="area">British</string>
+    <string name="instructions">— Instructions :</string>
+    <string name="youtube_video_description">Youtube Video</string>
+
+</resources>
