@@ -12,6 +12,7 @@ import com.dolla.yumyum.pojo.MealsByCategory
  * @project YumYum
  * @author adell
  */
+
 class CategoryMealsAdapter :
     RecyclerView.Adapter<CategoryMealsAdapter.CategoryMealsViewHolder>() { // Adapter class for the RecyclerView in the CategoryMealsActivity
 

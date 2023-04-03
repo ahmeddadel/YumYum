@@ -13,6 +13,7 @@ import com.dolla.yumyum.retrofit.RetrofitInstance
  * @project YumYum
  * @author adell
  */
+
 class MealViewModel : ViewModel() {
 
     private val _mealLiveData = MutableLiveData<Meal>()

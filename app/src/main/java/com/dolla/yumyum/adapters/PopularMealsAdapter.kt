@@ -12,6 +12,7 @@ import com.dolla.yumyum.pojo.PopularMeal
  * @project YumYum
  * @author adell
  */
+
 class PopularMealsAdapter :
     RecyclerView.Adapter<PopularMealsAdapter.PopularMealsViewHolder>() { // Adapter class for the RecyclerView in the HomeFragment
 

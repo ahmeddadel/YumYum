@@ -12,6 +12,7 @@ import com.dolla.yumyum.pojo.Category
  * @project YumYum
  * @author adell
  */
+
 class CategoriesAdapter :
     RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder>() { // Adapter class for the RecyclerView in the HomeFragment
 

@@ -15,6 +15,7 @@ import retrofit2.Response
  * @project YumYum
  * @author adell
  */
+
 class HomeViewModel : ViewModel() {
 
     private val _randomMealLiveData = MutableLiveData<Meal>()

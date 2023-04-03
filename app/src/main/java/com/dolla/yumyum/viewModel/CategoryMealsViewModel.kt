@@ -12,6 +12,7 @@ import com.dolla.yumyum.retrofit.RetrofitInstance
  * @project YumYum
  * @author adell
  */
+
 class CategoryMealsViewModel : ViewModel() {
 
     private val _categoryMealsLiveData = MutableLiveData<List<MealsByCategory>?>()
