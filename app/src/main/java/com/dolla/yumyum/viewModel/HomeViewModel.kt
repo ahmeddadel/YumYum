@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dolla.yumyum.db.MealDatabase
 import com.dolla.yumyum.pojo.*
 import com.dolla.yumyum.retrofit.RetrofitInstance
 import retrofit2.Call
@@ -16,7 +17,7 @@ import retrofit2.Response
  * @author adell
  */
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
 
     private val _randomMealLiveData = MutableLiveData<Meal>()
     val randomMealLiveData: LiveData<Meal>
@@ -29,6 +30,11 @@ class HomeViewModel : ViewModel() {
     private val _categoriesLiveData = MutableLiveData<List<Category>?>()
     val categoriesLiveData: LiveData<List<Category>?>
         get() = _categoriesLiveData // This is a read-only property that returns the value of the private property _categoriesLiveData
+
+    private val _favoriteMealsLiveData = mealDatabase.getMealDao()
+        .getAllMeals() // This will get all the meals from the database and store it in the _favoriteMealsLiveData
+    val favoriteMealsLiveData: LiveData<List<Meal>>
+        get() = _favoriteMealsLiveData // This is a read-only property that returns the value of the private property _favoriteMealsLiveData
 
     fun getRandomMeal() { // This function will make the API call to get a random meal
         RetrofitInstance.mealApi.getRandomMeal()

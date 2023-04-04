@@ -4,9 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.dolla.yumyum.db.MealDatabase
 import com.dolla.yumyum.pojo.Meal
 import com.dolla.yumyum.pojo.MealList
 import com.dolla.yumyum.retrofit.RetrofitInstance
+import kotlinx.coroutines.launch
 
 /**
  * @created 30/03/2023 - 1:49 AM
@@ -14,7 +17,7 @@ import com.dolla.yumyum.retrofit.RetrofitInstance
  * @author adell
  */
 
-class MealViewModel : ViewModel() {
+class MealViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
 
     private val _mealLiveData = MutableLiveData<Meal>()
     val mealDetailsLiveData: LiveData<Meal>
@@ -42,5 +45,19 @@ class MealViewModel : ViewModel() {
                     Log.d("MealActivity_getMealById()", t.message.toString())
                 }
             })
+    }
+
+    fun insertMeal(meal: Meal) { // This function will insert the meal into the database
+        viewModelScope.launch { // viewModelScope is used to launch a coroutine in the ViewModel
+            mealDatabase.getMealDao()
+                .upsertMeal(meal) // upsertMeal is used to update or insert the meal into the database
+        }
+    }
+
+    fun deleteMeal(meal: Meal) { // This function will delete the meal from the database
+        viewModelScope.launch { // viewModelScope is used to launch a coroutine in the ViewModel
+            mealDatabase.getMealDao()
+                .deleteMeal(meal) // deleteMeal is used to delete the meal from the database
+        }
     }
 }

@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.dolla.yumyum.activites.CategoryMealsActivity
+import com.dolla.yumyum.activites.MainActivity
 import com.dolla.yumyum.activites.MealActivity
 import com.dolla.yumyum.adapters.CategoriesAdapter
 import com.dolla.yumyum.adapters.PopularMealsAdapter
@@ -40,7 +40,9 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         // Get an instance of the HomeViewModel class (ViewModelProvider is a factory class)
-        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+//        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        homeViewModel =
+            (activity as MainActivity).viewModel // Get the HomeViewModel instance from the MainActivity
 
         // Initialize the popularMealsAdapter object instance
         popularMealsAdapter = PopularMealsAdapter()

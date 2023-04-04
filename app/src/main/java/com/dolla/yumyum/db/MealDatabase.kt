@@ -33,7 +33,7 @@ abstract class MealDatabase : RoomDatabase() {
 
         fun getInstance(context: Context): MealDatabase { // getInstance is used to get the instance of the MealDatabase class
             if (instance == null) { // if the instance is null
-                synchronized(MealDatabase::class.java) { // synchronized is used to make the code block synchronized
+                synchronized(MealDatabase::class.java) { // synchronized is used to make the code block synchronized (only one thread can access the code block at a time)
                     if (instance == null) { // check again if the instance is null (to make sure that the instance is not created by another thread)
                         instance =
                             Room.databaseBuilder( // instance is assigned to the database builder

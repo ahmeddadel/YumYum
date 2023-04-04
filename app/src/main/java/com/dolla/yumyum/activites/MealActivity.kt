@@ -10,11 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dolla.yumyum.R
 import com.dolla.yumyum.databinding.ActivityMealBinding
+import com.dolla.yumyum.db.MealDatabase
 import com.dolla.yumyum.fragments.HomeFragment.Companion.MEAL_ID
 import com.dolla.yumyum.fragments.HomeFragment.Companion.MEAL_NAME
 import com.dolla.yumyum.fragments.HomeFragment.Companion.MEAL_THUMB
 import com.dolla.yumyum.pojo.Meal
 import com.dolla.yumyum.viewModel.MealViewModel
+import com.dolla.yumyum.viewModel.MealViewModelFactory
 
 class MealActivity : AppCompatActivity() {
 
@@ -33,7 +35,13 @@ class MealActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Initialize the MealViewModel
-        mealViewModel = ViewModelProvider(this)[MealViewModel::class.java]
+//        mealViewModel = ViewModelProvider(this)[MealViewModel::class.java]
+        val mealDatabase = MealDatabase.getInstance(this) // Get the instance of the MealDatabase
+        val viewModelFactory = MealViewModelFactory(mealDatabase) // Create the MealViewModelFactory
+        mealViewModel = ViewModelProvider(
+            this,
+            viewModelFactory
+        )[MealViewModel::class.java] // Create the MealViewModel using the MealViewModelFactory
     }
 
     override fun onStart() { // Called when the activity is about to become visible.
@@ -44,6 +52,7 @@ class MealActivity : AppCompatActivity() {
         mealViewModel.getMealById(mealId) // Get the meal details from the API using the meal ID (fire the API call)
         observeMealDetails() // Observe the mealDetailsLiveData of the MealViewModel
         onYoutubeClick() // Set the onClickListener for the YouTube button
+        onFavoriteClick() // Set the onClickListener for the favorite button
     }
 
     private fun getMealDetailsFromIntent() { // Get the meal details from the intent
@@ -117,6 +126,13 @@ class MealActivity : AppCompatActivity() {
                 Uri.parse(meal.youtubeUrl)
             ) // Create an intent to open the YouTube link
             startActivity(intent) // Start the intent
+        }
+    }
+
+    private fun onFavoriteClick() { // Set the onClickListener for the favorite button
+        binding.fabAddToFavourites.setOnClickListener {
+            mealViewModel.insertMeal(meal) // Insert the meal into the database
+            binding.fabAddToFavourites.setImageResource(R.drawable.ic_favorite) // Set the FAB icon to the favorite icon
         }
     }
 }
