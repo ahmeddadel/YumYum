@@ -16,8 +16,9 @@ import com.dolla.yumyum.pojo.PopularMeal
 class PopularMealsAdapter :
     RecyclerView.Adapter<PopularMealsAdapter.PopularMealsViewHolder>() { // Adapter class for the RecyclerView in the HomeFragment
 
-    // lambda function that will be used to handle the click event on the popular meal item in the RecyclerView
+    // lambda functions that will be used to handle the click event on the popular meal item in the RecyclerView
     lateinit var onPopularMealClicked: ((PopularMeal) -> Unit) // This function will be used to handle the click event on the popular meal item
+    lateinit var onPopularMealLongClicked: ((PopularMeal) -> Unit) // This function will be used to handle the long click event on the popular meal item
     private var popularMealList =
         ArrayList<PopularMeal>() // This list will hold the list of popular meals
 
@@ -50,6 +51,10 @@ class PopularMealsAdapter :
 
         holder.itemView.setOnClickListener { // Set the click listener on the root view of the item view in the RecyclerView (popular_items.xml)
             onPopularMealClicked(popularMealList[position]) // Call the lambda function to handle the click event on the popular meal item
+        }
+        holder.itemView.setOnLongClickListener { // Set the long click listener on the root view of the item view in the RecyclerView (popular_items.xml)
+            onPopularMealLongClicked(popularMealList[position]) // Call the lambda function to handle the long click event on the popular meal item
+            true // Return true to indicate that the long click event has been handled
         }
     }
 

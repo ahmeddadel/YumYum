@@ -141,19 +141,21 @@ class FavouritesFragment : Fragment() {
                 activity,
                 MealActivity::class.java
             ) // Create an intent to start the MealActivity
-            intent.putExtra(
-                HomeFragment.MEAL_ID,
-                favouriteMeal.id
-            ) // Put the meal ID in the intent extras
-            intent.putExtra(
-                HomeFragment.MEAL_NAME,
-                favouriteMeal.name
-            ) // Put the meal name in the intent extras
-            intent.putExtra(
-                HomeFragment.MEAL_THUMB,
-                favouriteMeal.thumbUrl
-            ) // Put the meal image URL in the intent extras
-            startActivity(intent) // Start the MealActivity (pass the intent)
+            intent.apply {
+                putExtra(
+                    HomeFragment.MEAL_ID,
+                    favouriteMeal.id
+                ) // Put the meal ID in the intent extras
+                putExtra(
+                    HomeFragment.MEAL_NAME,
+                    favouriteMeal.name
+                ) // Put the meal name in the intent extras
+                putExtra(
+                    HomeFragment.MEAL_THUMB,
+                    favouriteMeal.thumbUrl
+                ) // Put the meal image URL in the intent extras
+            }
+            startActivity(intent) // Start the MealActivity
         }
     }
 }

@@ -78,12 +78,11 @@ class CategoryMealsActivity : AppCompatActivity() {
                 this@CategoryMealsActivity,
                 MealActivity::class.java
             ) // Create an intent to start the MealActivity
-            intent.putExtra(MEAL_ID, meal.id) // Put the meal ID in the intent extras
-            intent.putExtra(MEAL_NAME, meal.name) // Put the meal name in the intent extras
-            intent.putExtra(
-                MEAL_THUMB,
-                meal.thumbUrl
-            ) // Put the meal thumb URL in the intent extras
+            intent.apply {
+                putExtra(MEAL_ID, meal.id) // Put the meal ID in the intent extras
+                putExtra(MEAL_NAME, meal.name) // Put the meal name in the intent extras
+                putExtra(MEAL_THUMB, meal.thumbUrl) // Put the meal thumb URL in the intent extras
+            }
             startActivity(intent) // Start the MealActivity
         }
     }

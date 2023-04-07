@@ -14,12 +14,16 @@
     <string name="over_popular_items">Over Popular Items</string>
     <string name="categories">Categories</string>
     <string name="popular_items_description">Popular Items</string>
-    <string name="categories_items_description">Categories Items</string>
 
     <!-- Favourites Fragment -->
     <string name="favourites_items_description">Favourites Items</string>
 
     <!-- Categories Fragment -->
+    <string name="categories_items_description">Categories Items</string>
+
+    <!-- Bottom Sheet Fragment -->
+    <string name="bottom_sheet_description">Bottom Sheet Image</string>
+    <string name="read_more">Read More …</string>
 
     <!-- Meal Activity -->
     <string name="meal_image_description">Meal Image</string>

@@ -15,6 +15,7 @@ import com.dolla.yumyum.activites.MealActivity
 import com.dolla.yumyum.adapters.CategoriesAdapter
 import com.dolla.yumyum.adapters.PopularMealsAdapter
 import com.dolla.yumyum.databinding.FragmentHomeBinding
+import com.dolla.yumyum.fragments.bottomSheet.MealBottomSheetDialogFragment
 import com.dolla.yumyum.pojo.Category
 import com.dolla.yumyum.pojo.Meal
 import com.dolla.yumyum.pojo.PopularMeal
@@ -76,6 +77,7 @@ class HomeFragment : Fragment() {
         viewModel.getPopularMeals() // Call the getPopularMeals() method of the HomeViewModel (fire the API call)
         observePopularMeals() // Observe the popularMealsLiveData of the HomeViewModel
         onPopularMealClick() // Set the onClickListener for the popular meals
+        onPopularMealLongClick() // Set the onLongClickListener for the popular meals
 
         prepareCategoriesRecyclerView() // Prepare the RecyclerView for the categories
         viewModel.getCategories() // Call the getCategories() method of the HomeViewModel (fire the API call)
@@ -99,12 +101,14 @@ class HomeFragment : Fragment() {
                 activity,
                 MealActivity::class.java
             ) // Create an intent to start the MealActivity
-            intent.putExtra(MEAL_ID, randomMeal.id) // Put the meal ID in the intent extras
-            intent.putExtra(MEAL_NAME, randomMeal.name) // Put the meal name in the intent extras
-            intent.putExtra(
-                MEAL_THUMB,
-                randomMeal.thumbUrl
-            ) // Put the meal image URL in the intent extras
+            intent.apply {
+                putExtra(MEAL_ID, randomMeal.id) // Put the meal ID in the intent extras
+                putExtra(MEAL_NAME, randomMeal.name) // Put the meal name in the intent extras
+                putExtra(
+                    MEAL_THUMB,
+                    randomMeal.thumbUrl
+                ) // Put the meal image URL in the intent extras
+            }
             startActivity(intent) // Start the MealActivity (pass the intent)
         }
     }
@@ -134,13 +138,25 @@ class HomeFragment : Fragment() {
                 activity,
                 MealActivity::class.java
             ) // Create an intent to start the MealActivity
-            intent.putExtra(MEAL_ID, popularMeal.id) // Put the meal ID in the intent extras
-            intent.putExtra(MEAL_NAME, popularMeal.name) // Put the meal name in the intent extras
-            intent.putExtra(
-                MEAL_THUMB,
-                popularMeal.thumbUrl
-            ) // Put the meal image URL in the intent extras
+            intent.apply {
+                putExtra(MEAL_ID, popularMeal.id) // Put the meal ID in the intent extras
+                putExtra(MEAL_NAME, popularMeal.name) // Put the meal name in the intent extras
+                putExtra(
+                    MEAL_THUMB,
+                    popularMeal.thumbUrl
+                ) // Put the meal image URL in the intent extras
+            }
             startActivity(intent) // Start the MealActivity (pass the intent)
+        }
+    }
+
+    private fun onPopularMealLongClick() { // Set the onLongClickListener for the popular meals
+        popularMealsAdapter.onPopularMealLongClicked = { popularMeal ->
+            val mealBottomSheetDialogFragment = MealBottomSheetDialogFragment(popularMeal.id)
+            mealBottomSheetDialogFragment.show(
+                childFragmentManager,
+                "MealBottomSheetFragment"
+            )
         }
     }
 

@@ -38,6 +38,10 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
     val favouriteMealsLiveData: LiveData<List<Meal>>
         get() = _favouriteMealsLiveData // This is a read-only property that returns the value of the private property _favouriteMealsLiveData
 
+    private val _mealBottomSheetDialogLiveData = MutableLiveData<Meal>()
+    val mealBottomSheetDialogLiveData: LiveData<Meal>
+        get() = _mealBottomSheetDialogLiveData // This is a read-only property that returns the value of the private property _bottomSheetMealLiveData
+
     fun getRandomMeal() { // This function will make the API call to get a random meal
         RetrofitInstance.mealApi.getRandomMeal()
             .enqueue(object : Callback<MealList> { // Make the API call
@@ -105,6 +109,27 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
                     t: Throwable
                 ) { // If the API call fails, log the error message
                     Log.d("HomeFragment_getCategories()", t.message.toString())
+                }
+            })
+    }
+
+    fun getMealById(id: String) { // This function will make the API call to get a meal by its ID
+        RetrofitInstance.mealApi.getMealById(id)
+            .enqueue(object : Callback<MealList> { // Make the API call
+                override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
+                    if (response.isSuccessful) { // If the response is successful, get the list of meals from the response body
+                        val mealList =
+                            response.body()?.meals // The response body is a MealList object
+                        _mealBottomSheetDialogLiveData.value =
+                            mealList?.get(0) // Set the value of the bottomSheetMealLiveData to the first meal in the list (the meal with the specified ID)
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<MealList>,
+                    t: Throwable
+                ) { // If the API call fails, log the error message
+                    Log.d("HomeFragment_getMealById()", t.message.toString())
                 }
             })
     }
