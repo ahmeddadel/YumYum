@@ -40,6 +40,7 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/search_description"
                 android:paddingStart="@dimen/_2sdp"
+                android:paddingEnd="0dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_search"
                 tools:ignore="ImageContrastCheck" />
@@ -132,7 +133,6 @@
                 android:id="@+id/rv_categories"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingStart="@dimen/_12sdp"
                 android:scrollbars="none" />
         </androidx.cardview.widget.CardView>
 

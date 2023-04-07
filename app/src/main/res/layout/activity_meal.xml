@@ -91,6 +91,7 @@
                     android:textSize="@dimen/_11ssp"
                     android:textStyle="bold"
                     app:drawableLeftCompat="@drawable/ic_categories"
+                    tools:ignore="TextContrastCheck"
                     tools:text="@string/category" />
 
                 <TextView
