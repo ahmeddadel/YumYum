@@ -22,11 +22,17 @@ class FavouritesAdapter : RecyclerView.Adapter<FavouritesAdapter.FavouritesViewH
 
     private val diffUtil = object :
         DiffUtil.ItemCallback<Meal>() { // DiffUtil class to compare the old and new list of meals to determine which items have been added, removed, or changed
-        override fun areItemsTheSame(oldItem: Meal, newItem: Meal): Boolean { // check if the items are the same (same id)
+        override fun areItemsTheSame(
+            oldItem: Meal,
+            newItem: Meal
+        ): Boolean { // check if the items are the same (same id)
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Meal, newItem: Meal): Boolean { // check if the contents of the items are the same (same object instance)
+        override fun areContentsTheSame(
+            oldItem: Meal,
+            newItem: Meal
+        ): Boolean { // check if the contents of the items are the same (same object instance)
             return oldItem == newItem
         }
     }

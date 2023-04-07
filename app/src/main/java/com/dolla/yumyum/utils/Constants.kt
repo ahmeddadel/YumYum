@@ -1,10 +1,5 @@
 package com.dolla.yumyum.utils
 
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
-import com.dolla.yumyum.pojo.Meal
-import java.util.*
-
 /**
  * @created 26/03/2023 - 9:27 PM
  * @project YumYum
