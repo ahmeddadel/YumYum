@@ -25,7 +25,7 @@ abstract class MealDatabase : RoomDatabase() {
     // abstract fun because we will have instances of MealDao interface
     abstract fun getMealDao(): MealDao // getMealDao is used to get the MealDao interface
 
-    companion object {
+    companion object { // companion object is used to declare static variables and functions
         // @Volatile is used to make the variable visible to all the threads
         @Volatile
         private var instance: MealDatabase? =
@@ -41,7 +41,7 @@ abstract class MealDatabase : RoomDatabase() {
                                 MealDatabase::class.java, // MealDatabase class is used to get the MealDatabase class
                                 DATABASE_NAME // "mealDatabase" is used to specify the name of the database
                             )
-                                .fallbackToDestructiveMigration() // fallbackToDestructiveMigration is used to fallback to destructive migration if the database version is changed
+                                .fallbackToDestructiveMigration() // fallbackToDestructiveMigration is used to fallback to destructive migration if the database version is changed (rebuild the database and keep the data)
                                 .build() // build is used to build the database
                     }
                 }

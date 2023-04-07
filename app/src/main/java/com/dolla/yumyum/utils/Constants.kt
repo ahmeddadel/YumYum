@@ -6,8 +6,7 @@ package com.dolla.yumyum.utils
  * @author adell
  */
 
-object Constants {
-
+object Constants { // Object that contains all the constants used in the app (Singleton)
     const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/" // Base URL for the MealDB API
     const val RANDOM_MEAL = "random.php" // Path for the random meal API call
     const val MEAL_BY_ID = "lookup.php?" // Path for the meal by id API call

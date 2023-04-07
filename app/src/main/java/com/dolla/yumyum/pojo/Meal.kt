@@ -10,8 +10,8 @@ import com.google.gson.annotations.SerializedName
     primaryKeys = [PRIMARY_KEY]
 ) // Entity is used to create a table in the database (Room Database)
 data class Meal( // serializedName is used to map the JSON key to the variable name
-    // we make all the attributes nullable because some of the attributes are not present in the JSON except the idMeal attribute
-    @SerializedName("idMeal") val id: String,
+    // we make all the attributes nullable because some of the attributes are not present in the JSON except the idMeal (id) attribute
+    @SerializedName("idMeal") val id: String, // primary key cannot be null
     @SerializedName("strMeal") val name: String?,
     @SerializedName("strDrinkAlternate") val drinkAlternate: String?,
     @SerializedName("strCategory") val category: String?,

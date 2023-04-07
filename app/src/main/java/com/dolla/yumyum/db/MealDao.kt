@@ -28,4 +28,6 @@ interface MealDao {
     @Query("SELECT * FROM $TABLE_NAME") // Query is used to query data from the database
     fun getAllMeals(): LiveData<List<Meal>> // getAllMeals is used to get all the meals from the database (not suspend function because it will return a LiveData object)
 
+    @Query("SELECT * FROM $TABLE_NAME WHERE id = :id") // Query is used to query data from the database
+    fun getMealById(id: String): LiveData<Meal> // getMealById is used to get a meal by its id from the database (not suspend function because it will return a LiveData object)
 }
