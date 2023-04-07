@@ -47,14 +47,14 @@ class MealViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
             })
     }
 
-    fun insertMeal(meal: Meal) { // This function will insert the meal into the database
+    fun insertMealIntoDb(meal: Meal) { // This function will insert the meal into the database
         viewModelScope.launch { // viewModelScope is used to launch a coroutine in the ViewModel
             mealDatabase.getMealDao()
                 .upsertMeal(meal) // upsertMeal is used to update or insert the meal into the database
         }
     }
 
-    fun deleteMeal(meal: Meal) { // This function will delete the meal from the database
+    fun deleteMealFromDb(meal: Meal) { // This function will delete the meal from the database
         viewModelScope.launch { // viewModelScope is used to launch a coroutine in the ViewModel
             mealDatabase.getMealDao()
                 .deleteMeal(meal) // deleteMeal is used to delete the meal from the database

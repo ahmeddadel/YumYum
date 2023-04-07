@@ -7,11 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.dolla.yumyum.activites.MainActivity
 import com.dolla.yumyum.activites.MealActivity
 import com.dolla.yumyum.adapters.FavouritesAdapter
 import com.dolla.yumyum.databinding.FragmentFavouritesBinding
+import com.dolla.yumyum.pojo.Meal
 import com.dolla.yumyum.viewModel.HomeViewModel
+import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 class FavouritesFragment : Fragment() {
 
@@ -48,6 +53,67 @@ class FavouritesFragment : Fragment() {
         prepareFavouritesRecyclerView() // Prepare the RecyclerView for the favourites
         observeFavourites() // Observe the favourites LiveData
         onFavouriteMealClick() // Set the on click listener for the favourite meals
+
+        val itemTouchHelper = ItemTouchHelper( // Create an ItemTouchHelper object
+            object : ItemTouchHelper.SimpleCallback( // Create a SimpleCallback object
+                ItemTouchHelper.UP or ItemTouchHelper.DOWN, // Set the drag directions
+                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT // Set the swipe directions
+            ) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean { // This method is called when an item is moved in the RecyclerView (dragged)
+
+                    val fromPosition = viewHolder.adapterPosition // Get the from position
+                    val toPosition = target.adapterPosition // Get the to position
+
+                    val oldList: MutableList<Meal> =
+                        favouritesAdapter.differ.currentList.toMutableList() // Get the current list of meals
+
+                    // Swap the items in the list based on the from and to positions
+                    if (fromPosition < toPosition) {
+                        for (i in fromPosition until toPosition) {
+                            Collections.swap(oldList, i, i + 1)
+                        }
+                    } else {
+                        for (i in fromPosition downTo toPosition + 1) {
+                            Collections.swap(oldList, i, i - 1)
+                        }
+                    }
+
+                    favouritesAdapter.differ.submitList(oldList) // Submit the new list to the differ
+                    favouritesAdapter.notifyItemMoved(
+                        fromPosition,
+                        toPosition
+                    ) // Notify the adapter that the items have been moved
+
+                    return true // Return true
+                }
+
+                override fun onSwiped(
+                    viewHolder: RecyclerView.ViewHolder,
+                    direction: Int
+                ) { // This method is called when an item is swiped in the RecyclerView (swiped)
+                    val meal =
+                        favouritesAdapter.differ.currentList[viewHolder.adapterPosition] // Get the meal at the swiped position
+                    viewModel.deleteMealFromDb(meal) // Delete the meal from the database
+
+                    Snackbar.make( // Show a snackbar
+                        view,
+                        "Successfully removed ${meal.name} from favourites",
+                        Snackbar.LENGTH_LONG
+                    ).apply {
+                        setAction("Undo") {
+                            viewModel.insertMealIntoDb(meal)
+                        }
+                        show()
+                    }
+                }
+            }
+        )
+
+        itemTouchHelper.attachToRecyclerView(binding.rvFavourites) // Attach the ItemTouchHelper to the RecyclerView
     }
 
     private fun prepareFavouritesRecyclerView() {
@@ -91,3 +157,4 @@ class FavouritesFragment : Fragment() {
         }
     }
 }
+

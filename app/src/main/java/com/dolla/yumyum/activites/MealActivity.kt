@@ -146,12 +146,12 @@ class MealActivity : AppCompatActivity() {
         mealViewModel.getMealByIdFromDb(mealId).observe(this) { favouriteMeal ->
             if (favouriteMeal != null) { // If the meal is not null (it exists in the database)
                 binding.fabAddToFavourites.setOnClickListener {
-                    mealViewModel.deleteMeal(meal) // Delete the meal from the database
+                    mealViewModel.deleteMealFromDb(meal) // Delete the meal from the database
                     binding.fabAddToFavourites.setImageResource(R.drawable.ic_favourite_border) // Set the FAB icon to the favourite border icon
                 }
             } else { // If the meal is null (it does not exist in the database)
                 binding.fabAddToFavourites.setOnClickListener {
-                    mealViewModel.insertMeal(meal) // Insert the meal into the database
+                    mealViewModel.insertMealIntoDb(meal) // Insert the meal into the database
                     binding.fabAddToFavourites.setImageResource(R.drawable.ic_favourite) // Set the FAB icon to the favourite icon
                 }
             }

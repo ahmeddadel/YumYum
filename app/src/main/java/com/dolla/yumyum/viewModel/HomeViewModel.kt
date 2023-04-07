@@ -4,9 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.dolla.yumyum.db.MealDatabase
 import com.dolla.yumyum.pojo.*
 import com.dolla.yumyum.retrofit.RetrofitInstance
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,7 +19,7 @@ import retrofit2.Response
  * @author adell
  */
 
-class HomeViewModel(mealDatabase: MealDatabase) : ViewModel() {
+class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
 
     private val _randomMealLiveData = MutableLiveData<Meal>()
     val randomMealLiveData: LiveData<Meal>
@@ -105,5 +107,19 @@ class HomeViewModel(mealDatabase: MealDatabase) : ViewModel() {
                     Log.d("HomeFragment_getCategories()", t.message.toString())
                 }
             })
+    }
+
+    fun deleteMealFromDb(meal: Meal) { // This function will delete the meal from the database
+        viewModelScope.launch { // viewModelScope is used to launch a coroutine in the ViewModel
+            mealDatabase.getMealDao()
+                .deleteMeal(meal) // deleteMeal is used to delete the meal from the database
+        }
+    }
+
+    fun insertMealIntoDb(meal: Meal) { // This function will insert the meal into the database
+        viewModelScope.launch { // viewModelScope is used to launch a coroutine in the ViewModel
+            mealDatabase.getMealDao()
+                .upsertMeal(meal) // upsertMeal is used to update or insert the meal into the database
+        }
     }
 }
