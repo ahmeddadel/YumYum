@@ -17,13 +17,16 @@ import com.dolla.yumyum.pojo.Meal
 
 class FavouritesAdapter : RecyclerView.Adapter<FavouritesAdapter.FavouritesViewHolder>() {
 
+    // lambda function that will be used to handle the click event on the favourite meal item in the RecyclerView
+    lateinit var onFavouriteMealClicked: ((Meal) -> Unit) // This function will be called when a favourite meal is clicked
+
     private val diffUtil = object :
         DiffUtil.ItemCallback<Meal>() { // DiffUtil class to compare the old and new list of meals to determine which items have been added, removed, or changed
-        override fun areItemsTheSame(oldItem: Meal, newItem: Meal): Boolean {
+        override fun areItemsTheSame(oldItem: Meal, newItem: Meal): Boolean { // check if the items are the same (same id)
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Meal, newItem: Meal): Boolean {
+        override fun areContentsTheSame(oldItem: Meal, newItem: Meal): Boolean { // check if the contents of the items are the same (same object instance)
             return oldItem == newItem
         }
     }
@@ -57,6 +60,10 @@ class FavouritesAdapter : RecyclerView.Adapter<FavouritesAdapter.FavouritesViewH
             .into(holder.binding.ivMeal) // Set the image to the ImageView
 
         holder.binding.tvMealTitle.text = meal.name // Set the name of the meal to the TextView
+
+        holder.itemView.setOnClickListener { // Set the click listener on the root view of the item view in the RecyclerView (category_meal_item.xml)
+            onFavouriteMealClicked(meal) // Call the lambda function to handle the click event on the favourite meal item
+        }
     }
 
     override fun getItemCount(): Int =
@@ -64,5 +71,5 @@ class FavouritesAdapter : RecyclerView.Adapter<FavouritesAdapter.FavouritesViewH
 
     // ViewHolder class that takes in the view binding object instance of the category_meal_item.xml layout file and extends the RecyclerView.ViewHolder class to hold the view binding object instance
     inner class FavouritesViewHolder(val binding: CategoryMealItemBinding) :
-        RecyclerView.ViewHolder(binding.root) // ViewHolder class for the FavoritesAdapter class to hold the view binding object instance of the category_meal_item.xml layout file
+        RecyclerView.ViewHolder(binding.root) // ViewHolder class for the FavouritesAdapter class to hold the view binding object instance of the category_meal_item.xml layout file
 }

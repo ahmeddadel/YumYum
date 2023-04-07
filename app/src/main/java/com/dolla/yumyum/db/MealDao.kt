@@ -25,9 +25,9 @@ interface MealDao {
     @Delete // Delete is used to delete data from the database
     suspend fun deleteMeal(meal: Meal) // suspend is used to make the function asynchronous
 
-    @Query("SELECT * FROM $TABLE_NAME") // Query is used to query data from the database
-    fun getAllMeals(): LiveData<List<Meal>> // getAllMeals is used to get all the meals from the database (not suspend function because it will return a LiveData object)
-
     @Query("SELECT * FROM $TABLE_NAME WHERE id = :id") // Query is used to query data from the database
     fun getMealById(id: String): LiveData<Meal> // getMealById is used to get a meal by its id from the database (not suspend function because it will return a LiveData object)
+
+    @Query("SELECT * FROM $TABLE_NAME") // Query is used to query data from the database
+    fun getAllMeals(): LiveData<List<Meal>> // getAllMeals is used to get all the meals from the database (not suspend function because it will return a LiveData object)
 }

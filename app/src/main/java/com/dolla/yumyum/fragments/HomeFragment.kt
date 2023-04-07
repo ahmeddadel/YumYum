@@ -23,7 +23,7 @@ import com.dolla.yumyum.viewModel.HomeViewModel
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding // View binding
-    private lateinit var homeViewModel: HomeViewModel // ViewModel
+    private lateinit var viewModel: HomeViewModel // ViewModel
     private lateinit var randomMeal: Meal // Meal object
     private lateinit var popularMealsAdapter: PopularMealsAdapter // Adapter for the RecyclerView in the HomeFragment
     private lateinit var categoriesAdapter: CategoriesAdapter // Adapter for the RecyclerView in the HomeFragment
@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
 
         // Get an instance of the HomeViewModel class (ViewModelProvider is a factory class)
 //        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
-        homeViewModel =
+        viewModel =
             (activity as MainActivity).viewModel // Get the HomeViewModel instance from the MainActivity
 
         // Initialize the popularMealsAdapter object instance
@@ -68,23 +68,23 @@ class HomeFragment : Fragment() {
     ) { // This method is called after onCreateView() when the fragment's view hierarchy is created and ready to be used
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel.getRandomMeal() // Call the getRandomMeal() method of the HomeViewModel (fire the API call)
+        viewModel.getRandomMeal() // Call the getRandomMeal() method of the HomeViewModel (fire the API call)
         observeRandomMeal() // Observe the randomMealLiveData of the HomeViewModel
         onRandomMealClick() // Set the onClickListener for the random meal ImageView
 
         preparePopularMealsRecyclerView() // Prepare the RecyclerView for the popular meals
-        homeViewModel.getPopularMeals() // Call the getPopularMeals() method of the HomeViewModel (fire the API call)
+        viewModel.getPopularMeals() // Call the getPopularMeals() method of the HomeViewModel (fire the API call)
         observePopularMeals() // Observe the popularMealsLiveData of the HomeViewModel
         onPopularMealClick() // Set the onClickListener for the popular meals
 
         prepareCategoriesRecyclerView() // Prepare the RecyclerView for the categories
-        homeViewModel.getCategories() // Call the getCategories() method of the HomeViewModel (fire the API call)
+        viewModel.getCategories() // Call the getCategories() method of the HomeViewModel (fire the API call)
         observeCategories() // Observe the categoriesLiveData of the HomeViewModel
         onCategoryClick() // Set the onClickListener for the categories
     }
 
     private fun observeRandomMeal() { // Observe the randomMealLiveData of the HomeViewModel
-        homeViewModel.randomMealLiveData.observe(viewLifecycleOwner) { meal ->
+        viewModel.randomMealLiveData.observe(viewLifecycleOwner) { meal ->
             Glide.with(this@HomeFragment) // this@HomeFragment is the context of the fragment
                 .load(meal.thumbUrl) // Load the meal image from the URL
                 .into(binding.ivRandomMeal) // Set the image to the ImageView
@@ -123,7 +123,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observePopularMeals() { // Observe the popularMealsLiveData of the HomeViewModel
-        homeViewModel.popularMealsLiveData.observe(viewLifecycleOwner) { mealList ->
+        viewModel.popularMealsLiveData.observe(viewLifecycleOwner) { mealList ->
             popularMealsAdapter.setMealsList(mealList as ArrayList<PopularMeal>) // cast the mealList to an ArrayList<PopularMeal> and pass it to the setMealsList() method of the popularMealsAdapter
         }
     }
@@ -157,7 +157,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeCategories() { // Observe the categoriesLiveData of the HomeViewModel
-        homeViewModel.categoriesLiveData.observe(viewLifecycleOwner) { categories ->
+        viewModel.categoriesLiveData.observe(viewLifecycleOwner) { categories ->
             categoriesAdapter.setCategoriesList(categories as ArrayList<Category>) // cast the categories to an ArrayList<Category> and pass it to the setCategoriesList() method of the categoriesAdapter
         }
     }

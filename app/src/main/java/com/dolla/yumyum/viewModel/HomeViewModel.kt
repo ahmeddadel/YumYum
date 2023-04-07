@@ -17,7 +17,7 @@ import retrofit2.Response
  * @author adell
  */
 
-class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
+class HomeViewModel(mealDatabase: MealDatabase) : ViewModel() {
 
     private val _randomMealLiveData = MutableLiveData<Meal>()
     val randomMealLiveData: LiveData<Meal>
@@ -31,10 +31,10 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
     val categoriesLiveData: LiveData<List<Category>?>
         get() = _categoriesLiveData // This is a read-only property that returns the value of the private property _categoriesLiveData
 
-    private val _favoriteMealsLiveData = mealDatabase.getMealDao()
-        .getAllMeals() // This will get all the meals from the database and store it in the _favoriteMealsLiveData
-    val favoriteMealsLiveData: LiveData<List<Meal>>
-        get() = _favoriteMealsLiveData // This is a read-only property that returns the value of the private property _favoriteMealsLiveData
+    private val _favouriteMealsLiveData = mealDatabase.getMealDao()
+        .getAllMeals() // This will get all the meals from the database and store it in the _favouriteMealsLiveData
+    val favouriteMealsLiveData: LiveData<List<Meal>>
+        get() = _favouriteMealsLiveData // This is a read-only property that returns the value of the private property _favouriteMealsLiveData
 
     fun getRandomMeal() { // This function will make the API call to get a random meal
         RetrofitInstance.mealApi.getRandomMeal()

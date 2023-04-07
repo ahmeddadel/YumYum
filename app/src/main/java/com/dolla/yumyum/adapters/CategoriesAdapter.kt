@@ -16,7 +16,7 @@ import com.dolla.yumyum.pojo.Category
 class CategoriesAdapter :
     RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder>() { // Adapter class for the RecyclerView in the HomeFragment
 
-    // lambda function that will be called when a category is clicked
+    // lambda function that will be used to handle the click event on the category item in the RecyclerView
     lateinit var onCategoryClicked: (Category) -> Unit // This function will be called when a category is clicked
     private var categoriesList = ArrayList<Category>() // This list will hold the list of categories
 

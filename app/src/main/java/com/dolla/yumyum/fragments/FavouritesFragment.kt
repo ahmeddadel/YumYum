@@ -1,5 +1,6 @@
 package com.dolla.yumyum.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dolla.yumyum.activites.MainActivity
+import com.dolla.yumyum.activites.MealActivity
 import com.dolla.yumyum.adapters.FavouritesAdapter
 import com.dolla.yumyum.databinding.FragmentFavouritesBinding
 import com.dolla.yumyum.viewModel.HomeViewModel
@@ -14,14 +16,14 @@ import com.dolla.yumyum.viewModel.HomeViewModel
 class FavouritesFragment : Fragment() {
 
     private lateinit var binding: FragmentFavouritesBinding
-    private lateinit var favouritesViewModel: HomeViewModel
+    private lateinit var viewModel: HomeViewModel
     private lateinit var favouritesAdapter: FavouritesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) { // This method is called when the fragment is first created
         super.onCreate(savedInstanceState)
 
         // Get the HomeViewModel instance from the MainActivity
-        favouritesViewModel = (activity as MainActivity).viewModel
+        viewModel = (activity as MainActivity).viewModel
 
         // Initialize the favouritesAdapter object instance
         favouritesAdapter = FavouritesAdapter()
@@ -45,6 +47,7 @@ class FavouritesFragment : Fragment() {
 
         prepareFavouritesRecyclerView() // Prepare the RecyclerView for the favourites
         observeFavourites() // Observe the favourites LiveData
+        onFavouriteMealClick() // Set the on click listener for the favourite meals
     }
 
     private fun prepareFavouritesRecyclerView() {
@@ -61,8 +64,30 @@ class FavouritesFragment : Fragment() {
     }
 
     private fun observeFavourites() { // Observe the favourites LiveData in the HomeViewModel
-        favouritesViewModel.favoriteMealsLiveData.observe(viewLifecycleOwner) { meals ->
+        viewModel.favouriteMealsLiveData.observe(viewLifecycleOwner) { meals ->
             favouritesAdapter.differ.submitList(meals) // Submit the list of meals to the differ
+        }
+    }
+
+    private fun onFavouriteMealClick() { // Set the on click listener for the favourite meals
+        favouritesAdapter.onFavouriteMealClicked = { favouriteMeal ->
+            val intent = Intent(
+                activity,
+                MealActivity::class.java
+            ) // Create an intent to start the MealActivity
+            intent.putExtra(
+                HomeFragment.MEAL_ID,
+                favouriteMeal.id
+            ) // Put the meal ID in the intent extras
+            intent.putExtra(
+                HomeFragment.MEAL_NAME,
+                favouriteMeal.name
+            ) // Put the meal name in the intent extras
+            intent.putExtra(
+                HomeFragment.MEAL_THUMB,
+                favouriteMeal.thumbUrl
+            ) // Put the meal image URL in the intent extras
+            startActivity(intent) // Start the MealActivity (pass the intent)
         }
     }
 }

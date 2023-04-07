@@ -60,4 +60,9 @@ class MealViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
                 .deleteMeal(meal) // deleteMeal is used to delete the meal from the database
         }
     }
+
+    fun getMealByIdFromDb(id: String): LiveData<Meal> { // This function will get the meal from the database by id
+        return mealDatabase.getMealDao()
+            .getMealById(id) // getMealById is used to get the meal from the database by id
+    }
 }

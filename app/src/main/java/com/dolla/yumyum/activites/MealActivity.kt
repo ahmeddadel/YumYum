@@ -37,10 +37,11 @@ class MealActivity : AppCompatActivity() {
         // Initialize the MealViewModel
 //        mealViewModel = ViewModelProvider(this)[MealViewModel::class.java]
         val mealDatabase = MealDatabase.getInstance(this) // Get the instance of the MealDatabase
-        val viewModelFactory = MealViewModelFactory(mealDatabase) // Create the MealViewModelFactory
+        val mealViewModelFactory =
+            MealViewModelFactory(mealDatabase) // Create the MealViewModelFactory
         mealViewModel = ViewModelProvider(
             this,
-            viewModelFactory
+            mealViewModelFactory
         )[MealViewModel::class.java] // Create the MealViewModel using the MealViewModelFactory
     }
 
@@ -52,7 +53,7 @@ class MealActivity : AppCompatActivity() {
         mealViewModel.getMealById(mealId) // Get the meal details from the API using the meal ID (fire the API call)
         observeMealDetails() // Observe the mealDetailsLiveData of the MealViewModel
         onYoutubeClick() // Set the onClickListener for the YouTube button
-        onFavoriteClick() // Set the onClickListener for the favorite button
+        onFavouriteClick() // Set the onClickListener for the favourite button
     }
 
     private fun getMealDetailsFromIntent() { // Get the meal details from the intent
@@ -94,7 +95,19 @@ class MealActivity : AppCompatActivity() {
             binding.tvContent.text =
                 meal.instructions // Set the meal instructions into the TextView
 
+            isFavouriteMeal() // Check if the meal is a favourite meal to set the FAB icon
+
             this.meal = meal // Set the meal object to the meal object from the API call
+        }
+    }
+
+    private fun isFavouriteMeal() { // Check if the meal is a favourite meal
+        mealViewModel.getMealByIdFromDb(mealId).observe(this) { favouriteMeal ->
+            if (favouriteMeal != null) { // If the meal is not null (it exists in the database)
+                binding.fabAddToFavourites.setImageResource(R.drawable.ic_favourite) // Set the FAB icon to the favourite icon
+            } else { // If the meal is null (it does not exist in the database)
+                binding.fabAddToFavourites.setImageResource(R.drawable.ic_favourite_border) // Set the FAB icon to the favourite border icon
+            }
         }
     }
 
@@ -129,10 +142,19 @@ class MealActivity : AppCompatActivity() {
         }
     }
 
-    private fun onFavoriteClick() { // Set the onClickListener for the favorite button
-        binding.fabAddToFavourites.setOnClickListener {
-            mealViewModel.insertMeal(meal) // Insert the meal into the database
-            binding.fabAddToFavourites.setImageResource(R.drawable.ic_favorite) // Set the FAB icon to the favorite icon
+    private fun onFavouriteClick() { // Set the onClickListener for the favourite button
+        mealViewModel.getMealByIdFromDb(mealId).observe(this) { favouriteMeal ->
+            if (favouriteMeal != null) { // If the meal is not null (it exists in the database)
+                binding.fabAddToFavourites.setOnClickListener {
+                    mealViewModel.deleteMeal(meal) // Delete the meal from the database
+                    binding.fabAddToFavourites.setImageResource(R.drawable.ic_favourite_border) // Set the FAB icon to the favourite border icon
+                }
+            } else { // If the meal is null (it does not exist in the database)
+                binding.fabAddToFavourites.setOnClickListener {
+                    mealViewModel.insertMeal(meal) // Insert the meal into the database
+                    binding.fabAddToFavourites.setImageResource(R.drawable.ic_favourite) // Set the FAB icon to the favourite icon
+                }
+            }
         }
     }
 }

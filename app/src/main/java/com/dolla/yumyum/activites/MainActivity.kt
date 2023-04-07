@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             this,
             homeViewModelFactory
         )[HomeViewModel::class.java] // Create the HomeViewModel using the HomeViewModelFactory
-    }
+    } // ViewModel object instance to be used in other fragments
 
     override fun onCreate(savedInstanceState: Bundle?) { // Called when the activity is first created.
         super.onCreate(savedInstanceState)

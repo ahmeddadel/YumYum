@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_10sdp"
         android:contentDescription="@string/fab_description"
-        android:src="@drawable/ic_favourites_border"
+        android:src="@drawable/ic_favourite_border"
         app:backgroundTint="@color/accent"
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|end"
