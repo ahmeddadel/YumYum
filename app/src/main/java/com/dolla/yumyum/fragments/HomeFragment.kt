@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
     ): View { // This method is called to have the fragment instantiate its user interface view
 
         // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater)
 
         return binding.root
     }
@@ -72,6 +72,7 @@ class HomeFragment : Fragment() {
         viewModel.getRandomMeal() // Call the getRandomMeal() method of the HomeViewModel (fire the API call)
         observeRandomMeal() // Observe the randomMealLiveData of the HomeViewModel
         onRandomMealClick() // Set the onClickListener for the random meal ImageView
+        onRandomMealLongClick() // Set the onLongClickListener for the random meal ImageView
 
         preparePopularMealsRecyclerView() // Prepare the RecyclerView for the popular meals
         viewModel.getPopularMeals() // Call the getPopularMeals() method of the HomeViewModel (fire the API call)
@@ -110,6 +111,18 @@ class HomeFragment : Fragment() {
                 ) // Put the meal image URL in the intent extras
             }
             startActivity(intent) // Start the MealActivity (pass the intent)
+        }
+    }
+
+    private fun onRandomMealLongClick() { // Set the onLongClickListener for the random meal ImageView
+        binding.ivRandomMeal.setOnLongClickListener { // Set the onLongClickListener for the random meal ImageView
+            val mealBottomSheetDialogFragment =
+                MealBottomSheetDialogFragment.newInstance(randomMeal.id) // Create a new instance of the MealBottomSheetDialogFragment
+            mealBottomSheetDialogFragment.show( // Show the MealBottomSheetDialogFragment
+                childFragmentManager,
+                MealBottomSheetDialogFragment().javaClass.simpleName
+            ) // Show the MealBottomSheetDialogFragment
+            true // Return true to indicate that the long click has been consumed
         }
     }
 
@@ -152,11 +165,12 @@ class HomeFragment : Fragment() {
 
     private fun onPopularMealLongClick() { // Set the onLongClickListener for the popular meals
         popularMealsAdapter.onPopularMealLongClicked = { popularMeal ->
-            val mealBottomSheetDialogFragment = MealBottomSheetDialogFragment(popularMeal.id)
+            val mealBottomSheetDialogFragment =
+                MealBottomSheetDialogFragment.newInstance(popularMeal.id) // Create a new instance of the MealBottomSheetDialogFragment
             mealBottomSheetDialogFragment.show(
                 childFragmentManager,
-                "MealBottomSheetFragment"
-            )
+                MealBottomSheetDialogFragment().javaClass.simpleName
+            ) // Show the MealBottomSheetDialogFragment
         }
     }
 

@@ -39,7 +39,7 @@ class FavouritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View { // This method is called to have the fragment instantiate its user interface view
         // Inflate the layout for this fragment
-        binding = FragmentFavouritesBinding.inflate(inflater, container, false)
+        binding = FragmentFavouritesBinding.inflate(inflater)
 
         return binding.root
     }
@@ -73,11 +73,11 @@ class FavouritesFragment : Fragment() {
 
                     // Swap the items in the list based on the from and to positions
                     if (fromPosition < toPosition) {
-                        for (i in fromPosition until toPosition) {
+                        for (i in fromPosition until toPosition - 2) {
                             Collections.swap(oldList, i, i + 1)
                         }
                     } else {
-                        for (i in fromPosition downTo toPosition + 1) {
+                        for (i in fromPosition downTo toPosition + 2) {
                             Collections.swap(oldList, i, i - 1)
                         }
                     }

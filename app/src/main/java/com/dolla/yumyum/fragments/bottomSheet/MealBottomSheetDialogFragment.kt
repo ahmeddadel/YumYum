@@ -15,18 +15,26 @@ import com.dolla.yumyum.fragments.HomeFragment.Companion.MEAL_THUMB
 import com.dolla.yumyum.viewModel.HomeViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class MealBottomSheetDialogFragment(private var mealId: String?) : BottomSheetDialogFragment() {
+private const val MEAL_ID_PARAM = "mealId"
+
+class MealBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentMealBottomSheetBinding
     private lateinit var viewModel: HomeViewModel
-    private lateinit var mealName: String
-    private lateinit var mealThumb: String
+    private var mealId: String? = null
+    private var mealName: String? = null
+    private var mealThumb: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) { // This method is called when the fragment is first created
         super.onCreate(savedInstanceState)
 
         // Get the HomeViewModel instance from the MainActivity
         viewModel = (activity as MainActivity).viewModel
+
+        // Get the mealId from the arguments
+        arguments?.let {
+            mealId = it.getString(MEAL_ID_PARAM)
+        }
     }
 
     override fun onCreateView(
@@ -34,7 +42,7 @@ class MealBottomSheetDialogFragment(private var mealId: String?) : BottomSheetDi
         savedInstanceState: Bundle?
     ): View { // This method is called to have the fragment instantiate its user interface view
         // Inflate the layout for this fragment
-        binding = FragmentMealBottomSheetBinding.inflate(inflater, container, false)
+        binding = FragmentMealBottomSheetBinding.inflate(inflater)
 
         return binding.root
     }
@@ -63,26 +71,38 @@ class MealBottomSheetDialogFragment(private var mealId: String?) : BottomSheetDi
             binding.tvBottomSheetMealLocation.text =
                 bottomSheetMeal.area // Set the meal area to the TextView
 
-            if (bottomSheetMeal.name != null) {
-                mealName = bottomSheetMeal.name
-            }
-            if (bottomSheetMeal.thumbUrl != null) {
-                mealThumb = bottomSheetMeal.thumbUrl
-            }
+            mealName = bottomSheetMeal.name // Set the meal name to the mealName variable
+            mealThumb = bottomSheetMeal.thumbUrl // Set the meal thumbUrl to the mealThumb variable
         }
     }
 
     private fun onMealBottomSheetDialogClick() { // Set the onClickListener to the bottomSheetMeal layout
         binding.mealBottomSheet.setOnClickListener {
-            val intent =
-                Intent(activity, MealActivity::class.java) // Create an intent to the MainActivity
-            intent.apply {
-                putExtra(MEAL_ID, mealId) // Pass the mealId to the MainActivity
-                putExtra(MEAL_NAME, mealName) // Pass the mealName to the MainActivity
-                putExtra(MEAL_THUMB, mealThumb) // Pass the mealThumb to the MainActivity
+            if (mealName != null && mealThumb != null) {
+                val intent =
+                    Intent(
+                        activity,
+                        MealActivity::class.java
+                    ) // Create an intent to the MainActivity
+                intent.apply {
+                    putExtra(MEAL_ID, mealId) // Pass the mealId to the MainActivity
+                    putExtra(MEAL_NAME, mealName) // Pass the mealName to the MainActivity
+                    putExtra(MEAL_THUMB, mealThumb) // Pass the mealThumb to the MainActivity
+
+                    startActivity(intent) // Start the MainActivity
+                    dismiss() // Dismiss the bottomSheet dialog fragment
+                }
             }
-            startActivity(intent) // Start the MainActivity
         }
-        dismiss() // Dismiss the bottomSheet dialog fragment
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(mealId: String) =
+            MealBottomSheetDialogFragment().apply {
+                arguments = Bundle().apply {
+                    putString(MEAL_ID_PARAM, mealId)
+                }
+            }
     }
 }

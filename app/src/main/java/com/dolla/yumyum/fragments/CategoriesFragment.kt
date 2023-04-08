@@ -35,7 +35,7 @@ class CategoriesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View { // This method is called to have the fragment instantiate its user interface view
         // Inflate the layout for this fragment
-        binding = FragmentCategoriesBinding.inflate(inflater, container, false)
+        binding = FragmentCategoriesBinding.inflate(inflater)
 
         return binding.root
     }

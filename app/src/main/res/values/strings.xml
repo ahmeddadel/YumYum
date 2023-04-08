@@ -11,14 +11,16 @@
     <string name="search_description">This is search icon</string>
     <string name="what_would_you_like_to_eat">What would you like to eat?</string>
     <string name="random_meal_description">Random Meal</string>
-    <string name="over_popular_items">Over Popular Items</string>
+    <string name="over_popular_meals">Over Popular Meals</string>
     <string name="categories">Categories</string>
     <string name="popular_items_description">Popular Items</string>
 
     <!-- Favourites Fragment -->
+    <string name="favourites">Favourites</string>
     <string name="favourites_items_description">Favourites Items</string>
 
     <!-- Categories Fragment -->
+    <string name="categories_items">Categories Items</string>
     <string name="categories_items_description">Categories Items</string>
 
     <!-- Bottom Sheet Fragment -->
