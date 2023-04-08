@@ -46,11 +46,13 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
     val searchedMealLiveData: LiveData<List<Meal>?>
         get() = _searchedMealLiveData // This is a read-only property that returns the value of the private property _searchedMealLiveData
 
-    init { // If the activity is recreated, the init block will be called again but if the activity is not recreated, the init block will not be called again (handle fragment recreation)
-        getRandomMeal() // Get a random meal when the HomeViewModel is created
-    }
+    private var saveStateRandomMeal: Meal? = null // This is a variable that will be used to save the state of the random meal when the fragment is destroyed and recreated
 
-    private fun getRandomMeal() { // This function will make the API call to get a random meal
+    fun getRandomMeal() { // This function will make the API call to get a random meal
+        saveStateRandomMeal?.let { randomMeal -> // If the saveStateRandomMeal is not null, set the value of the randomMealLiveData to the saveStateRandomMeal
+            _randomMealLiveData.value = randomMeal
+            return // Return from the function so that the API call is not made
+        }
         RetrofitInstance.mealApi.getRandomMeal()
             .enqueue(object : Callback<MealList> { // Make the API call
                 override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
@@ -60,6 +62,7 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
                             response.body()?.meals // The response body is a MealList object
                         _randomMealLiveData.value =
                             randomMealList?.get(0)// Set the value of the randomMealLiveData to the first meal in the list (the random meal)
+                        saveStateRandomMeal = randomMealList?.get(0) // Save the state of the random meal
                     }
                 }
 

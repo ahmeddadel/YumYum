@@ -71,6 +71,7 @@ class HomeFragment : Fragment() {
     ) { // This method is called after onCreateView() when the fragment's view hierarchy is created and ready to be used
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.getRandomMeal() // Call the getRandomMeal() method of the HomeViewModel (fire the API call)
         observeRandomMeal() // Observe the randomMealLiveData of the HomeViewModel
         onRandomMealClick() // Set the onClickListener for the random meal ImageView
         onRandomMealLongClick() // Set the onLongClickListener for the random meal ImageView
