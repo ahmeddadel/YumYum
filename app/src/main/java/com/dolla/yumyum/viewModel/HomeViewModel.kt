@@ -50,7 +50,7 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
         getRandomMeal() // Get a random meal when the HomeViewModel is created
     }
 
-    fun getRandomMeal() { // This function will make the API call to get a random meal
+    private fun getRandomMeal() { // This function will make the API call to get a random meal
         RetrofitInstance.mealApi.getRandomMeal()
             .enqueue(object : Callback<MealList> { // Make the API call
                 override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
