@@ -3,9 +3,9 @@ package com.dolla.yumyum.viewModel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dolla.yumyum.pojo.MealsByCategory
-import com.dolla.yumyum.pojo.MealsByCategoryList
-import com.dolla.yumyum.retrofit.RetrofitInstance
+import com.dolla.yumyum.data.pojo.MealsByCategory
+import com.dolla.yumyum.data.pojo.MealsByCategoryList
+import com.dolla.yumyum.data.retrofit.RetrofitInstance
 
 /**
  * @created 03/04/2023 - 2:58 AM

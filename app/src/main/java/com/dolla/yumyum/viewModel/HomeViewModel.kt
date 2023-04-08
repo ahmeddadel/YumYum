@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dolla.yumyum.db.MealDatabase
-import com.dolla.yumyum.pojo.*
-import com.dolla.yumyum.retrofit.RetrofitInstance
+import com.dolla.yumyum.data.db.MealDatabase
+import com.dolla.yumyum.data.pojo.*
+import com.dolla.yumyum.data.retrofit.RetrofitInstance
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -46,7 +46,8 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
     val searchedMealLiveData: LiveData<List<Meal>?>
         get() = _searchedMealLiveData // This is a read-only property that returns the value of the private property _searchedMealLiveData
 
-    private var saveStateRandomMeal: Meal? = null // This is a variable that will be used to save the state of the random meal when the fragment is destroyed and recreated
+    private var saveStateRandomMeal: Meal? =
+        null // This is a variable that will be used to save the state of the random meal when the fragment is destroyed and recreated
 
     fun getRandomMeal() { // This function will make the API call to get a random meal
         saveStateRandomMeal?.let { randomMeal -> // If the saveStateRandomMeal is not null, set the value of the randomMealLiveData to the saveStateRandomMeal
@@ -62,7 +63,8 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
                             response.body()?.meals // The response body is a MealList object
                         _randomMealLiveData.value =
                             randomMealList?.get(0)// Set the value of the randomMealLiveData to the first meal in the list (the random meal)
-                        saveStateRandomMeal = randomMealList?.get(0) // Save the state of the random meal
+                        saveStateRandomMeal =
+                            randomMealList?.get(0) // Save the state of the random meal
                     }
                 }
 

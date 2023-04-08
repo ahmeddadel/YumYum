@@ -1,11 +1,11 @@
-package com.dolla.yumyum.db
+package com.dolla.yumyum.data.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.dolla.yumyum.pojo.Meal
+import com.dolla.yumyum.data.pojo.Meal
 import com.dolla.yumyum.utils.Constants.DATABASE_NAME
 
 /**

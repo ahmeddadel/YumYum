@@ -1,4 +1,4 @@
-package com.dolla.yumyum.db
+package com.dolla.yumyum.data.db
 
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters

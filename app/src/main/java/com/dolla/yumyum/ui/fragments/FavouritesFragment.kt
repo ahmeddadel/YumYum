@@ -1,4 +1,4 @@
-package com.dolla.yumyum.fragments
+package com.dolla.yumyum.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.dolla.yumyum.activites.MainActivity
-import com.dolla.yumyum.activites.MealActivity
 import com.dolla.yumyum.adapters.FavouritesAndSearchAdapter
+import com.dolla.yumyum.data.pojo.Meal
 import com.dolla.yumyum.databinding.FragmentFavouritesBinding
-import com.dolla.yumyum.pojo.Meal
+import com.dolla.yumyum.ui.activites.MainActivity
+import com.dolla.yumyum.ui.activites.MealActivity
 import com.dolla.yumyum.viewModel.HomeViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.util.*

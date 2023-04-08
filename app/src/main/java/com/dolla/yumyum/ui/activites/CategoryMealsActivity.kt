@@ -1,4 +1,4 @@
-package com.dolla.yumyum.activites
+package com.dolla.yumyum.ui.activites
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,12 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dolla.yumyum.adapters.CategoryMealsAdapter
+import com.dolla.yumyum.data.pojo.MealsByCategory
 import com.dolla.yumyum.databinding.ActivityCategoryMealsBinding
-import com.dolla.yumyum.fragments.HomeFragment.Companion.CATEGORY_NAME
-import com.dolla.yumyum.fragments.HomeFragment.Companion.MEAL_ID
-import com.dolla.yumyum.fragments.HomeFragment.Companion.MEAL_NAME
-import com.dolla.yumyum.fragments.HomeFragment.Companion.MEAL_THUMB
-import com.dolla.yumyum.pojo.MealsByCategory
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.CATEGORY_NAME
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_ID
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_NAME
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_THUMB
 import com.dolla.yumyum.viewModel.CategoryMealsViewModel
 
 class CategoryMealsActivity : AppCompatActivity() {

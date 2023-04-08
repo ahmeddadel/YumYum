@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.dolla.yumyum.fragments.HomeFragment"
+        android:name="com.dolla.yumyum.ui.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -16,17 +16,17 @@
     </fragment>
     <fragment
         android:id="@+id/favouritesFragment"
-        android:name="com.dolla.yumyum.fragments.FavouritesFragment"
+        android:name="com.dolla.yumyum.ui.fragments.FavouritesFragment"
         android:label="fragment_favourites"
         tools:layout="@layout/fragment_favourites" />
     <fragment
         android:id="@+id/categoriesFragment"
-        android:name="com.dolla.yumyum.fragments.CategoriesFragment"
+        android:name="com.dolla.yumyum.ui.fragments.CategoriesFragment"
         android:label="fragment_categories"
         tools:layout="@layout/fragment_categories" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.dolla.yumyum.fragments.SearchFragment"
+        android:name="com.dolla.yumyum.ui.fragments.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
 </navigation>

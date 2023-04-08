@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dolla.yumyum.db.MealDatabase
-import com.dolla.yumyum.pojo.Meal
-import com.dolla.yumyum.pojo.MealList
-import com.dolla.yumyum.retrofit.RetrofitInstance
+import com.dolla.yumyum.data.db.MealDatabase
+import com.dolla.yumyum.data.pojo.Meal
+import com.dolla.yumyum.data.pojo.MealList
+import com.dolla.yumyum.data.retrofit.RetrofitInstance
 import kotlinx.coroutines.launch
 
 /**

@@ -17,13 +17,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activites.CategoryMealsActivity"
+            android:name="com.dolla.yumyum.ui.activites.CategoryMealsActivity"
             android:exported="false" />
         <activity
-            android:name=".activites.MealActivity"
+            android:name="com.dolla.yumyum.ui.activites.MealActivity"
             android:exported="false" />
         <activity
-            android:name=".activites.MainActivity"
+            android:name="com.dolla.yumyum.ui.activites.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

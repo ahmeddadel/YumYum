@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.dolla.yumyum.data.pojo.Meal
 import com.dolla.yumyum.databinding.CategoryMealItemBinding
-import com.dolla.yumyum.pojo.Meal
 
 /**
  * @created 04/04/2023 - 9:01 AM

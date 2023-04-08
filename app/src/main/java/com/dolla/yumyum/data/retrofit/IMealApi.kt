@@ -1,9 +1,9 @@
-package com.dolla.yumyum.retrofit
+package com.dolla.yumyum.data.retrofit
 
-import com.dolla.yumyum.pojo.CategoryList
-import com.dolla.yumyum.pojo.MealList
-import com.dolla.yumyum.pojo.MealsByCategoryList
-import com.dolla.yumyum.pojo.PopularMealList
+import com.dolla.yumyum.data.pojo.CategoryList
+import com.dolla.yumyum.data.pojo.MealList
+import com.dolla.yumyum.data.pojo.MealsByCategoryList
+import com.dolla.yumyum.data.pojo.PopularMealList
 import com.dolla.yumyum.utils.Constants.CATEGORIES
 import com.dolla.yumyum.utils.Constants.MEAL_BY_CATEGORY
 import com.dolla.yumyum.utils.Constants.MEAL_BY_ID

@@ -1,4 +1,4 @@
-package com.dolla.yumyum.fragments
+package com.dolla.yumyum.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,16 +11,16 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.dolla.yumyum.R
-import com.dolla.yumyum.activites.CategoryMealsActivity
-import com.dolla.yumyum.activites.MainActivity
-import com.dolla.yumyum.activites.MealActivity
 import com.dolla.yumyum.adapters.CategoriesAdapter
 import com.dolla.yumyum.adapters.PopularMealsAdapter
+import com.dolla.yumyum.data.pojo.Category
+import com.dolla.yumyum.data.pojo.Meal
+import com.dolla.yumyum.data.pojo.PopularMeal
 import com.dolla.yumyum.databinding.FragmentHomeBinding
-import com.dolla.yumyum.fragments.bottomSheet.MealBottomSheetDialogFragment
-import com.dolla.yumyum.pojo.Category
-import com.dolla.yumyum.pojo.Meal
-import com.dolla.yumyum.pojo.PopularMeal
+import com.dolla.yumyum.ui.activites.CategoryMealsActivity
+import com.dolla.yumyum.ui.activites.MainActivity
+import com.dolla.yumyum.ui.activites.MealActivity
+import com.dolla.yumyum.ui.fragments.bottomSheetDialog.MealBottomSheetDialogFragment
 import com.dolla.yumyum.viewModel.HomeViewModel
 
 class HomeFragment : Fragment() {
@@ -33,10 +33,10 @@ class HomeFragment : Fragment() {
 
     // Companion object (static) to store the keys for the intent extras (used in the MealActivity)
     companion object {
-        const val MEAL_ID = "com.dolla.yumyum.fragments.MEAL_ID"
-        const val MEAL_NAME = "com.dolla.yumyum.fragments.MEAL_NAME"
-        const val MEAL_THUMB = "com.dolla.yumyum.fragments.MEAL_THUMB"
-        const val CATEGORY_NAME = "com.dolla.yumyum.fragments.CATEGORY_NAME"
+        const val MEAL_ID = "com.dolla.yumyum.ui.fragments.MEAL_ID"
+        const val MEAL_NAME = "com.dolla.yumyum.ui.fragments.MEAL_NAME"
+        const val MEAL_THUMB = "com.dolla.yumyum.ui.fragments.MEAL_THUMB"
+        const val CATEGORY_NAME = "com.dolla.yumyum.ui.fragments.CATEGORY_NAME"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) { // This method is called when the fragment is first created

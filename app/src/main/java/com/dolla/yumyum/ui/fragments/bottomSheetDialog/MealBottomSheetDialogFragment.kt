@@ -1,4 +1,4 @@
-package com.dolla.yumyum.fragments.bottomSheet
+package com.dolla.yumyum.ui.fragments.bottomSheetDialog
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
-import com.dolla.yumyum.activites.MainActivity
-import com.dolla.yumyum.activites.MealActivity
 import com.dolla.yumyum.databinding.FragmentMealBottomSheetBinding
-import com.dolla.yumyum.fragments.HomeFragment.Companion.MEAL_ID
-import com.dolla.yumyum.fragments.HomeFragment.Companion.MEAL_NAME
-import com.dolla.yumyum.fragments.HomeFragment.Companion.MEAL_THUMB
+import com.dolla.yumyum.ui.activites.MainActivity
+import com.dolla.yumyum.ui.activites.MealActivity
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_ID
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_NAME
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_THUMB
 import com.dolla.yumyum.viewModel.HomeViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

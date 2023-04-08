@@ -1,4 +1,4 @@
-package com.dolla.yumyum.activites
+package com.dolla.yumyum.ui.activites
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.dolla.yumyum.R
+import com.dolla.yumyum.data.db.MealDatabase
 import com.dolla.yumyum.databinding.ActivityMainBinding
-import com.dolla.yumyum.db.MealDatabase
 import com.dolla.yumyum.viewModel.HomeViewModel
 import com.dolla.yumyum.viewModel.HomeViewModelFactory
 

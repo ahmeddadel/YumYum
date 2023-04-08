@@ -1,4 +1,4 @@
-package com.dolla.yumyum.fragments
+package com.dolla.yumyum.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.dolla.yumyum.activites.CategoryMealsActivity
-import com.dolla.yumyum.activites.MainActivity
 import com.dolla.yumyum.adapters.CategoriesAdapter
+import com.dolla.yumyum.data.pojo.Category
 import com.dolla.yumyum.databinding.FragmentCategoriesBinding
-import com.dolla.yumyum.pojo.Category
+import com.dolla.yumyum.ui.activites.CategoryMealsActivity
+import com.dolla.yumyum.ui.activites.MainActivity
 import com.dolla.yumyum.viewModel.HomeViewModel
 
 class CategoriesFragment : Fragment() {

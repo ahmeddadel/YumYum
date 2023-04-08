@@ -1,4 +1,4 @@
-package com.dolla.yumyum.retrofit
+package com.dolla.yumyum.data.retrofit
 
 import com.dolla.yumyum.utils.Constants
 import retrofit2.Retrofit

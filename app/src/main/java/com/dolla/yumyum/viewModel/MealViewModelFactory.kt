@@ -2,7 +2,7 @@ package com.dolla.yumyum.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dolla.yumyum.db.MealDatabase
+import com.dolla.yumyum.data.db.MealDatabase
 
 /**
  * @created 04/04/2023 - 8:30 AM

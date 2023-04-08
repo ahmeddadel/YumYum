@@ -1,4 +1,4 @@
-package com.dolla.yumyum.activites
+package com.dolla.yumyum.ui.activites
 
 import android.content.Intent
 import android.net.Uri
@@ -9,12 +9,12 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dolla.yumyum.R
+import com.dolla.yumyum.data.db.MealDatabase
+import com.dolla.yumyum.data.pojo.Meal
 import com.dolla.yumyum.databinding.ActivityMealBinding
-import com.dolla.yumyum.db.MealDatabase
-import com.dolla.yumyum.fragments.HomeFragment.Companion.MEAL_ID
-import com.dolla.yumyum.fragments.HomeFragment.Companion.MEAL_NAME
-import com.dolla.yumyum.fragments.HomeFragment.Companion.MEAL_THUMB
-import com.dolla.yumyum.pojo.Meal
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_ID
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_NAME
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_THUMB
 import com.dolla.yumyum.viewModel.MealViewModel
 import com.dolla.yumyum.viewModel.MealViewModelFactory
 

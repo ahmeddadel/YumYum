@@ -1,8 +1,8 @@
-package com.dolla.yumyum.db
+package com.dolla.yumyum.data.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.dolla.yumyum.pojo.Meal
+import com.dolla.yumyum.data.pojo.Meal
 import com.dolla.yumyum.utils.Constants.TABLE_NAME
 
 /**

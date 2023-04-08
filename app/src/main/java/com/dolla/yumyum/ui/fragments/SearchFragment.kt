@@ -1,4 +1,4 @@
-package com.dolla.yumyum.fragments
+package com.dolla.yumyum.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dolla.yumyum.activites.MainActivity
 import com.dolla.yumyum.adapters.FavouritesAndSearchAdapter
 import com.dolla.yumyum.databinding.FragmentSearchBinding
+import com.dolla.yumyum.ui.activites.MainActivity
 import com.dolla.yumyum.viewModel.HomeViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

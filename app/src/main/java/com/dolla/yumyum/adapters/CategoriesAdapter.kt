@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.dolla.yumyum.data.pojo.Category
 import com.dolla.yumyum.databinding.CategoryItemBinding
-import com.dolla.yumyum.pojo.Category
 
 /**
  * @created 02/04/2023 - 11:17 PM

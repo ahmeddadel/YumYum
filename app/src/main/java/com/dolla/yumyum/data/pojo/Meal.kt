@@ -1,4 +1,4 @@
-package com.dolla.yumyum.pojo
+package com.dolla.yumyum.data.pojo
 
 import androidx.room.Entity
 import com.dolla.yumyum.utils.Constants.PRIMARY_KEY

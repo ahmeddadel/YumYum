@@ -5,7 +5,7 @@
     android:id="@+id/meal_bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".fragments.bottomSheet.MealBottomSheetDialogFragment">
+    tools:context=".ui.fragments.bottomSheetDialog.MealBottomSheetDialogFragment">
 
     <ImageView
         android:id="@+id/iv_bottom_sheet_meal_image"
