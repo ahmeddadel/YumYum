@@ -46,6 +46,10 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
     val searchedMealLiveData: LiveData<List<Meal>?>
         get() = _searchedMealLiveData // This is a read-only property that returns the value of the private property _searchedMealLiveData
 
+    init { // If the activity is recreated, the init block will be called again but if the activity is not recreated, the init block will not be called again (handle fragment recreation)
+        getRandomMeal() // Get a random meal when the HomeViewModel is created
+    }
+
     fun getRandomMeal() { // This function will make the API call to get a random meal
         RetrofitInstance.mealApi.getRandomMeal()
             .enqueue(object : Callback<MealList> { // Make the API call
