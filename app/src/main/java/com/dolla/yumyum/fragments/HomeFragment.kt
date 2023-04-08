@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.dolla.yumyum.R
 import com.dolla.yumyum.activites.CategoryMealsActivity
 import com.dolla.yumyum.activites.MainActivity
 import com.dolla.yumyum.activites.MealActivity
@@ -84,6 +86,8 @@ class HomeFragment : Fragment() {
         viewModel.getCategories() // Call the getCategories() method of the HomeViewModel (fire the API call)
         observeCategories() // Observe the categoriesLiveData of the HomeViewModel
         onCategoryClick() // Set the onClickListener for the categories
+
+        onSearchClick() // Set the onClickListener for the search ImageView
     }
 
     private fun observeRandomMeal() { // Observe the randomMealLiveData of the HomeViewModel
@@ -200,6 +204,12 @@ class HomeFragment : Fragment() {
             ) // Create an intent to start the CategoryActivity
             intent.putExtra(CATEGORY_NAME, category.name) // Put the category in the intent extras
             startActivity(intent) // Start the CategoryActivity (pass the intent)
+        }
+    }
+
+    private fun onSearchClick() { // Set the onClickListener for the search ImageView
+        binding.ivSearchButton.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment) // Navigate to the SearchFragment
         }
     }
 }

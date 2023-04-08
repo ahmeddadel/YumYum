@@ -35,7 +35,7 @@
                 tools:ignore="TextContrastCheck" />
 
             <ImageView
-                android:id="@+id/iv_search"
+                android:id="@+id/iv_search_button"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/search_description"

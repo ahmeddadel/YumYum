@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dolla.yumyum.activites.MainActivity
 import com.dolla.yumyum.activites.MealActivity
-import com.dolla.yumyum.adapters.FavouritesAdapter
+import com.dolla.yumyum.adapters.FavouritesAndSearchAdapter
 import com.dolla.yumyum.databinding.FragmentFavouritesBinding
 import com.dolla.yumyum.pojo.Meal
 import com.dolla.yumyum.viewModel.HomeViewModel
@@ -22,7 +22,7 @@ class FavouritesFragment : Fragment() {
 
     private lateinit var binding: FragmentFavouritesBinding
     private lateinit var viewModel: HomeViewModel
-    private lateinit var favouritesAdapter: FavouritesAdapter
+    private lateinit var favouritesAndSearchAdapter: FavouritesAndSearchAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) { // This method is called when the fragment is first created
         super.onCreate(savedInstanceState)
@@ -31,7 +31,7 @@ class FavouritesFragment : Fragment() {
         viewModel = (activity as MainActivity).viewModel
 
         // Initialize the favouritesAdapter object instance
-        favouritesAdapter = FavouritesAdapter()
+        favouritesAndSearchAdapter = FavouritesAndSearchAdapter()
     }
 
     override fun onCreateView(
@@ -69,7 +69,7 @@ class FavouritesFragment : Fragment() {
                     val toPosition = target.adapterPosition // Get the to position
 
                     val oldList: MutableList<Meal> =
-                        favouritesAdapter.differ.currentList.toMutableList() // Get the current list of meals
+                        favouritesAndSearchAdapter.differ.currentList.toMutableList() // Get the current list of meals
 
                     // Swap the items in the list based on the from and to positions
                     if (fromPosition < toPosition) {
@@ -82,8 +82,8 @@ class FavouritesFragment : Fragment() {
                         }
                     }
 
-                    favouritesAdapter.differ.submitList(oldList) // Submit the new list to the differ
-                    favouritesAdapter.notifyItemMoved(
+                    favouritesAndSearchAdapter.differ.submitList(oldList) // Submit the new list to the differ
+                    favouritesAndSearchAdapter.notifyItemMoved(
                         fromPosition,
                         toPosition
                     ) // Notify the adapter that the items have been moved
@@ -96,7 +96,7 @@ class FavouritesFragment : Fragment() {
                     direction: Int
                 ) { // This method is called when an item is swiped in the RecyclerView (swiped)
                     val meal =
-                        favouritesAdapter.differ.currentList[viewHolder.adapterPosition] // Get the meal at the swiped position
+                        favouritesAndSearchAdapter.differ.currentList[viewHolder.adapterPosition] // Get the meal at the swiped position
                     viewModel.deleteMealFromDb(meal) // Delete the meal from the database
 
                     Snackbar.make( // Show a snackbar
@@ -116,7 +116,7 @@ class FavouritesFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(binding.rvFavourites) // Attach the ItemTouchHelper to the RecyclerView
     }
 
-    private fun prepareFavouritesRecyclerView() {
+    private fun prepareFavouritesRecyclerView() { // Prepare the RecyclerView for the favourites
         binding.rvFavourites.apply {
             layoutManager = GridLayoutManager(
                 activity,
@@ -124,19 +124,19 @@ class FavouritesFragment : Fragment() {
                 GridLayoutManager.VERTICAL,
                 false
             ) // Set the layout manager for the RecyclerView to a GridLayoutManager
-            adapter = favouritesAdapter // Set the adapter for the RecyclerView
+            adapter = favouritesAndSearchAdapter // Set the adapter for the RecyclerView
             setHasFixedSize(true) // Set the hasFixedSize property to true (improves performance)
         }
     }
 
     private fun observeFavourites() { // Observe the favourites LiveData in the HomeViewModel
         viewModel.favouriteMealsLiveData.observe(viewLifecycleOwner) { meals ->
-            favouritesAdapter.differ.submitList(meals) // Submit the list of meals to the differ
+            favouritesAndSearchAdapter.differ.submitList(meals) // Submit the list of meals to the differ
         }
     }
 
     private fun onFavouriteMealClick() { // Set the on click listener for the favourite meals
-        favouritesAdapter.onFavouriteMealClicked = { favouriteMeal ->
+        favouritesAndSearchAdapter.onFavouriteMealClicked = { favouriteMeal ->
             val intent = Intent(
                 activity,
                 MealActivity::class.java

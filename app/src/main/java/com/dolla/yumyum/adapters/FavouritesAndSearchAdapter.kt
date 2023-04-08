@@ -15,7 +15,8 @@ import com.dolla.yumyum.pojo.Meal
  * @author adell
  */
 
-class FavouritesAdapter : RecyclerView.Adapter<FavouritesAdapter.FavouritesViewHolder>() {
+class FavouritesAndSearchAdapter :
+    RecyclerView.Adapter<FavouritesAndSearchAdapter.FavouritesViewHolder>() {
 
     // lambda function that will be used to handle the click event on the favourite meal item in the RecyclerView
     lateinit var onFavouriteMealClicked: ((Meal) -> Unit) // This function will be called when a favourite meal is clicked

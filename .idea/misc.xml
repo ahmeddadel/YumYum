@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.197" />
+        <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/drawable/ic_arrow.xml" value="0.182" />
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/drawable/ic_categories.xml" value="0.164" />
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/drawable/ic_favorite_.xml" value="0.194" />
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/drawable/ic_favourites.xml" value="0.197" />
@@ -13,6 +14,7 @@
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/drawable/ic_search.xml" value="0.164" />
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/drawable/ic_video.xml" value="0.1465" />
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/drawable/rounded_top_shape.xml" value="0.18" />
+        <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/drawable/search_box_background.xml" value="0.182" />
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/font/fonts.xml" value="0.27897435897435896" />
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/layout/activity_category_meals.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/layout/activity_main.xml" value="0.25025641025641027" />
@@ -24,6 +26,7 @@
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/layout/fragment_favourites.xml" value="0.21403508771929824" />
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/layout/fragment_meal_bottom_sheet.xml" value="0.21403508771929824" />
+        <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/layout/fragment_search.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/layout/popular_items.xml" value="0.190625" />
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/layout/popular_meal_item.xml" value="0.21403508771929824" />
         <entry key="..\:/Users/adell/AndroidStudioProjects/YumYum/app/src/main/res/menu/bottom_menu.xml" value="0.25416666666666665" />

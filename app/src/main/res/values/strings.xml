@@ -27,6 +27,10 @@
     <string name="bottom_sheet_description">Bottom Sheet Image</string>
     <string name="read_more">Read More …</string>
 
+    <!-- Search Fragment -->
+    <string name="search_hint">Search Meals …</string>
+    <string name="search_button">Search Button</string>
+
     <!-- Meal Activity -->
     <string name="meal_image_description">Meal Image</string>
     <string name="meal_name">Meal Name</string>

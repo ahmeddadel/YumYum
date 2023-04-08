@@ -7,6 +7,7 @@ import com.dolla.yumyum.pojo.PopularMealList
 import com.dolla.yumyum.utils.Constants.CATEGORIES
 import com.dolla.yumyum.utils.Constants.MEAL_BY_CATEGORY
 import com.dolla.yumyum.utils.Constants.MEAL_BY_ID
+import com.dolla.yumyum.utils.Constants.MEAL_BY_NAME
 import com.dolla.yumyum.utils.Constants.POPULAR_MEALS
 import com.dolla.yumyum.utils.Constants.RANDOM_MEAL
 import retrofit2.Call
@@ -36,4 +37,7 @@ interface IMealApi {
 
     @GET(MEAL_BY_CATEGORY)
     fun getMealByCategory(@Query("c") category: String): Call<MealsByCategoryList> // function to get meals by category
+
+    @GET(MEAL_BY_NAME)
+    fun searchMealByName(@Query("s") name: String): Call<MealList> // function to get meals by name
 }
