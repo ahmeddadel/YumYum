@@ -14,6 +14,7 @@ object Constants { // Object that contains all the constants used in the app (Si
     const val POPULAR_MEALS = "filter.php?" // Path for the popular meals API call
     const val CATEGORIES = "categories.php" // Path for the categories API call
     const val MEAL_BY_CATEGORY = "filter.php?" // Path for the meal by category API call
+    const val SEAFOOD_CATEGORY = "Seafood" // Seafood category
     const val TABLE_NAME = "mealInformation" // Table name for the Room Database
     const val PRIMARY_KEY = "id" // Primary key for the Room Database
     const val DATABASE_NAME = "mealDatabase" // Database name for the Room Database

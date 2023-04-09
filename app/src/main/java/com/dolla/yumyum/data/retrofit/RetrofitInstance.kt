@@ -1,6 +1,6 @@
 package com.dolla.yumyum.data.retrofit
 
-import com.dolla.yumyum.utils.Constants
+import com.dolla.yumyum.utils.Constants.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -17,7 +17,7 @@ object RetrofitInstance {
     // lazy means that the instance will only be created when it is first used
     val mealApi: IMealApi by lazy {
         Retrofit.Builder() // Create a Retrofit instance
-            .baseUrl(Constants.BASE_URL) // Set the base URL
+            .baseUrl(BASE_URL) // Set the base URL
             .addConverterFactory(
                 GsonConverterFactory.create() // Add the Gson converter factory
             )

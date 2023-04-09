@@ -10,7 +10,7 @@ import com.dolla.yumyum.utils.Constants.MEAL_BY_ID
 import com.dolla.yumyum.utils.Constants.MEAL_BY_NAME
 import com.dolla.yumyum.utils.Constants.POPULAR_MEALS
 import com.dolla.yumyum.utils.Constants.RANDOM_MEAL
-import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -24,20 +24,20 @@ import retrofit2.http.Query
 interface IMealApi {
 
     @GET(RANDOM_MEAL)
-    fun getRandomMeal(): Call<MealList> // function to get a random meal
+    suspend fun getRandomMeal(): Response<MealList> // function to get a random meal
 
     @GET(MEAL_BY_ID)
-    fun getMealById(@Query("i") id: String): Call<MealList> // function to get a meal by its id
+    suspend fun getMealById(@Query("i") id: String): Response<MealList> // function to get a meal by its id
 
     @GET(POPULAR_MEALS)
-    fun getPopularMeals(@Query("c") category: String): Call<PopularMealList> // function to get meals by category but we will use it to get the popular meals. because the MealDB API for popular meals is not free
+    suspend fun getPopularMeals(@Query("c") category: String): Response<PopularMealList> // function to get meals by category but we will use it to get the popular meals. because the MealDB API for popular meals is not free
 
     @GET(CATEGORIES)
-    fun getCategories(): Call<CategoryList> // function to get all the categories
+    suspend fun getCategories(): Response<CategoryList> // function to get all the categories
 
     @GET(MEAL_BY_CATEGORY)
-    fun getMealByCategory(@Query("c") category: String): Call<MealsByCategoryList> // function to get meals by category
+    suspend fun getMealByCategory(@Query("c") category: String): Response<MealsByCategoryList> // function to get meals by category
 
     @GET(MEAL_BY_NAME)
-    fun searchMealByName(@Query("s") name: String): Call<MealList> // function to get meals by name
+    suspend fun searchMealByName(@Query("s") name: String): Response<MealList> // function to get meals by name
 }
