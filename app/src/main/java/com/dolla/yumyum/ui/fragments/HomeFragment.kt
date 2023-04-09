@@ -146,8 +146,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun observePopularMeals() { // Observe the popularMealsLiveData of the HomeViewModel
-        viewModel.popularMealsLiveData.observe(viewLifecycleOwner) { mealList ->
-            popularMealsAdapter.setMealsList(mealList as ArrayList<PopularMeal>) // cast the mealList to an ArrayList<PopularMeal> and pass it to the setMealsList() method of the popularMealsAdapter
+        viewModel.popularMealsLiveData.observe(viewLifecycleOwner) { meals ->
+            val mealsList = ArrayList<PopularMeal>() // Initialize the mealsList
+            meals?.meals?.let { mealsList.addAll(it) } // Add the meals to the mealsList
+            popularMealsAdapter.setMealsList(mealsList) // Set the mealsList to the popularMealsAdapter
         }
     }
 
@@ -194,7 +196,9 @@ class HomeFragment : Fragment() {
 
     private fun observeCategories() { // Observe the categoriesLiveData of the HomeViewModel
         viewModel.categoriesLiveData.observe(viewLifecycleOwner) { categories ->
-            categoriesAdapter.setCategoriesList(categories as ArrayList<Category>) // cast the categories to an ArrayList<Category> and pass it to the setCategoriesList() method of the categoriesAdapter
+            val categoriesList = ArrayList<Category>() // Initialize the categoriesList
+            categories?.categories?.let { categoriesList.addAll(it) } // Add the categories to the categoriesList
+            categoriesAdapter.setCategoriesList(categoriesList) // Set the categoriesList to the categoriesAdapter
         }
     }
 

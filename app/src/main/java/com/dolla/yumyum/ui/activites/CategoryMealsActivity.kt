@@ -65,10 +65,12 @@ class CategoryMealsActivity : AppCompatActivity() {
 
     private fun observeCategoryMeals() { // Observe the categoryMealsViewModel's categoryMeals LiveData
         categoryMealsViewModel.categoryMealsLiveData.observe(this) { categoryMeals ->
-            val mealCountText = "${categoryName}: ${categoryMeals?.size}"
+            val mealCountText = "${categoryName}: ${categoryMeals?.meals?.size}"
             binding.tvCategoryMealsCount.text =
                 mealCountText // Set the text of the binding object's tvCategoryMealsCount to the mealCountText
-            categoryMealsAdapter.setCategoryMealsList(categoryMeals as ArrayList<MealsByCategory>) // cast the categoryMeals to ArrayList<MealsByCategory> and set the categoryMealsList of the categoryMealsAdapter
+            val categoryMealsList = ArrayList<MealsByCategory>() // Initialize the categoryMealsList
+            categoryMeals?.meals?.let { categoryMealsList.addAll(it) } // Add the categoryMeals to the categoryMealsList
+            categoryMealsAdapter.setCategoryMealsList(categoryMealsList) // Set the categoryMealsList of the categoryMealsAdapter
         }
     }
 
