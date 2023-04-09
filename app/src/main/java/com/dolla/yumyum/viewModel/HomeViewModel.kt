@@ -45,6 +45,11 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
     val favouriteMealsLiveData: LiveData<List<Meal>>
         get() = _favouriteMealsLiveData // This is a read-only property that returns the value of the private property _favouriteMealsLiveData
 
+    private val _noFavouriteMealsLiveData =
+        MutableLiveData(false) // This will be used to show a message when there are no favourite meals
+    val noFavouriteMealsLiveData: LiveData<Boolean>
+        get() = _noFavouriteMealsLiveData // This is a read-only property that returns the value of the private property _noFavouriteMealsLiveData
+
     private val _mealBottomSheetDialogLiveData = MutableLiveData<Meal>()
     val mealBottomSheetDialogLiveData: LiveData<Meal>
         get() = _mealBottomSheetDialogLiveData // This is a read-only property that returns the value of the private property _bottomSheetMealLiveData
@@ -166,6 +171,14 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
                     }
                 }
             }
+    }
+
+    fun setNoFavouriteMeals() { // This function will set the value of the noFavouriteMealsLiveData to true
+        _noFavouriteMealsLiveData.value = true
+    }
+
+    fun setFavouriteMeals() { // This function will set the value of the noFavouriteMealsLiveData to false
+        _noFavouriteMealsLiveData.value = false
     }
 
     fun deleteMealFromDb(meal: Meal) { // This function will delete the meal from the database

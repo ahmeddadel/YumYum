@@ -18,6 +18,7 @@
     <!-- Favourites Fragment -->
     <string name="favourites">Favourites</string>
     <string name="favourites_items_description">Favourites Items</string>
+    <string name="no_favourites">No Favourites</string>
 
     <!-- Categories Fragment -->
     <string name="categories_items">Categories Items</string>

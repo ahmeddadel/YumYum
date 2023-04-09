@@ -55,6 +55,7 @@ class FavouritesFragment : Fragment() {
 
         prepareFavouritesRecyclerView() // Prepare the RecyclerView for the favourites
         observeFavourites() // Observe the favourites LiveData
+        observeNoFavouritesState() // Observe the no favourites state LiveData
         onFavouriteMealClick() // Set the on click listener for the favourite meals
 
         val itemTouchHelper = ItemTouchHelper( // Create an ItemTouchHelper object
@@ -134,7 +135,24 @@ class FavouritesFragment : Fragment() {
 
     private fun observeFavourites() { // Observe the favourites LiveData in the HomeViewModel
         viewModel.favouriteMealsLiveData.observe(viewLifecycleOwner) { meals ->
+            if (meals.isEmpty()) { // If there are no favourites
+                viewModel.setNoFavouriteMeals() // Set the favourite meals state to no favourites
+            } else { // If there are favourites
+                viewModel.setFavouriteMeals() // Set the favourite meals state to favourites
+            }
             favouritesAndSearchAdapter.differ.submitList(meals) // Submit the list of meals to the differ
+        }
+    }
+
+    private fun observeNoFavouritesState() { // Observe the no favourites state LiveData in the HomeViewModel
+        viewModel.noFavouriteMealsLiveData.observe(viewLifecycleOwner) { noFavourites ->
+            if (noFavourites) { // If there are no favourites
+                binding.tvNoFavourites.visibility = View.VISIBLE // Show the no favourites text
+//                binding.rvFavourites.visibility = View.GONE // Hide the RecyclerView
+            } else { // If there are favourites
+                binding.tvNoFavourites.visibility = View.GONE // Hide the no favourites text
+//                binding.rvFavourites.visibility = View.VISIBLE // Show the RecyclerView
+            }
         }
     }
 

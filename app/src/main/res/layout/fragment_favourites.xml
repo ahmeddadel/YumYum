@@ -31,4 +31,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_favourites" />
 
+    <TextView
+        android:id="@+id/tv_no_favourites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/myfont"
+        android:text="@string/no_favourites"
+        android:textColor="@color/g_gray"
+        android:textSize="@dimen/_30ssp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_favourites" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
