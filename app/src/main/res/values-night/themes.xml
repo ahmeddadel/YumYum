@@ -12,6 +12,7 @@
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
+    <!--  Theme used only fro make the status bar transparent. -->
     <style name="Theme.YumYum.NoActionBarAndStatusBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
