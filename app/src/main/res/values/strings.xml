@@ -40,4 +40,7 @@
     <string name="instructions">— Instructions :</string>
     <string name="youtube_video_description">Youtube Video</string>
 
+    <!-- Splash Screen -->
+    <string name="splash_screen_text">YumYum!</string>
+
 </resources>

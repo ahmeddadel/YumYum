@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding // View binding
     private lateinit var viewModel: HomeViewModel // ViewModel
-    private lateinit var randomMeal: Meal // Meal object
+    private var randomMeal: Meal? = null // Meal object
     private lateinit var popularMealsAdapter: PopularMealsAdapter // Adapter for the RecyclerView in the HomeFragment
     private lateinit var categoriesAdapter: CategoriesAdapter // Adapter for the RecyclerView in the HomeFragment
 
@@ -107,22 +107,24 @@ class HomeFragment : Fragment() {
                 MealActivity::class.java
             ) // Create an intent to start the MealActivity
             intent.apply {
-                putExtra(MEAL_ID, randomMeal.id) // Put the meal ID in the intent extras
-                putExtra(MEAL_NAME, randomMeal.name) // Put the meal name in the intent extras
+                putExtra(MEAL_ID, randomMeal?.id) // Put the meal ID in the intent extras
+                putExtra(MEAL_NAME, randomMeal?.name) // Put the meal name in the intent extras
                 putExtra(
                     MEAL_THUMB,
-                    randomMeal.thumbUrl
+                    randomMeal?.thumbUrl
                 ) // Put the meal image URL in the intent extras
             }
-            startActivity(intent) // Start the MealActivity (pass the intent)
+            randomMeal?.let {
+                startActivity(intent) // Start the MealActivity (pass the intent)
+            }
         }
     }
 
     private fun onRandomMealLongClick() { // Set the onLongClickListener for the random meal ImageView
         binding.ivRandomMeal.setOnLongClickListener { // Set the onLongClickListener for the random meal ImageView
             val mealBottomSheetDialogFragment =
-                MealBottomSheetDialogFragment.newInstance(randomMeal.id) // Create a new instance of the MealBottomSheetDialogFragment
-            mealBottomSheetDialogFragment.show( // Show the MealBottomSheetDialogFragment
+                randomMeal?.let { mealId -> MealBottomSheetDialogFragment.newInstance(mealId.id) } // Create a new instance of the MealBottomSheetDialogFragment
+            mealBottomSheetDialogFragment?.show( // Show the MealBottomSheetDialogFragment
                 childFragmentManager,
                 MealBottomSheetDialogFragment().javaClass.simpleName
             ) // Show the MealBottomSheetDialogFragment
@@ -202,7 +204,10 @@ class HomeFragment : Fragment() {
                 activity,
                 CategoryMealsActivity::class.java
             ) // Create an intent to start the CategoryActivity
-            intent.putExtra(CATEGORY_NAME, category.name) // Put the category in the intent extras
+            intent.putExtra(
+                CATEGORY_NAME,
+                category.name
+            ) // Put the category in the intent extras
             startActivity(intent) // Start the CategoryActivity (pass the intent)
         }
     }

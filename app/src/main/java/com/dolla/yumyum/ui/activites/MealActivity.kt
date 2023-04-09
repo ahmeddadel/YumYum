@@ -78,6 +78,11 @@ class MealActivity : AppCompatActivity() {
                 R.color.white
             )
         ) // Set the collapsed title color
+        binding.collapsingToolbar.statusBarScrim =
+            ContextCompat.getDrawable(
+                applicationContext,
+                R.color.accent
+            ) // Set the status bar scrim
         binding.collapsingToolbar.setExpandedTitleColor(
             ContextCompat.getColor(
                 applicationContext,

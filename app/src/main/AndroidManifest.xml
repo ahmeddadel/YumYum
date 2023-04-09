@@ -17,13 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="com.dolla.yumyum.ui.activites.CategoryMealsActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.dolla.yumyum.ui.activites.MealActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.dolla.yumyum.ui.activites.MainActivity"
+            android:name=".ui.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +25,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activites.CategoryMealsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activites.MealActivity"
+            android:exported="false"
+            android:theme="@style/Theme.YumYum.NoActionBarAndStatusBar" />
+        <activity
+            android:name=".ui.activites.MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.YumYum.NoActionBarAndStatusBar" />
     </application>
 
 </manifest>

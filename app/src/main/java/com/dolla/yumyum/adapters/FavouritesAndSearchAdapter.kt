@@ -19,7 +19,7 @@ class FavouritesAndSearchAdapter :
     RecyclerView.Adapter<FavouritesAndSearchAdapter.FavouritesViewHolder>() {
 
     // lambda function that will be used to handle the click event on the favourite meal item in the RecyclerView
-    lateinit var onFavouriteMealClicked: ((Meal) -> Unit) // This function will be called when a favourite meal is clicked
+    lateinit var onFavouriteAndSearchMealClicked: ((Meal) -> Unit) // This function will be called when a favourite meal is clicked
 
     private val diffUtil = object :
         DiffUtil.ItemCallback<Meal>() { // DiffUtil class to compare the old and new list of meals to determine which items have been added, removed, or changed
@@ -69,7 +69,7 @@ class FavouritesAndSearchAdapter :
         holder.binding.tvMealTitle.text = meal.name // Set the name of the meal to the TextView
 
         holder.itemView.setOnClickListener { // Set the click listener on the root view of the item view in the RecyclerView (category_meal_item.xml)
-            onFavouriteMealClicked(meal) // Call the lambda function to handle the click event on the favourite meal item
+            onFavouriteAndSearchMealClicked(meal) // Call the lambda function to handle the click event on the favourite meal item
         }
     }
 

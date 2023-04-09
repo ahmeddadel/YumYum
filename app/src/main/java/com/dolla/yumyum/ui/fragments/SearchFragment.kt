@@ -1,6 +1,7 @@
 package com.dolla.yumyum.ui.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dolla.yumyum.adapters.FavouritesAndSearchAdapter
 import com.dolla.yumyum.databinding.FragmentSearchBinding
 import com.dolla.yumyum.ui.activites.MainActivity
+import com.dolla.yumyum.ui.activites.MealActivity
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_ID
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_NAME
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_THUMB
 import com.dolla.yumyum.viewModel.HomeViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -59,6 +64,7 @@ class SearchFragment : Fragment() {
         onSearchClick() // Set the on click listener for the search meals
         onKeyboardSearchClick() // Set the on click listener for the keyboard search button
         observeSearchedMeals() // Observe the searched meals LiveData
+        onSearchedMealClick() // Set the on click listener for the searched meals
     }
 
     private fun prepareSearchRecyclerView() { // Prepare the RecyclerView for the search
@@ -106,6 +112,21 @@ class SearchFragment : Fragment() {
     private fun observeSearchedMeals() { // Observe the searched meals LiveData
         viewModel.searchedMealLiveData.observe(viewLifecycleOwner) { searchedMeals ->
             searchAdapter.differ.submitList(searchedMeals) // Submit the list of searched meals to the adapter
+        }
+    }
+
+    private fun onSearchedMealClick() { // Set the on click listener for the searched meals
+        searchAdapter.onFavouriteAndSearchMealClicked = { searchedMeal ->
+            val intent = Intent(
+                activity,
+                MealActivity::class.java
+            ) // Create an intent to start the MealActivity
+            intent.apply {
+                putExtra(MEAL_ID, searchedMeal.id) // Put the meal ID in the intent
+                putExtra(MEAL_NAME, searchedMeal.name) // Put the meal name in the intent
+                putExtra(MEAL_THUMB, searchedMeal.thumbUrl) // Put the meal image in the intent
+            }
+            startActivity(intent) // Start the MealActivity
         }
     }
 

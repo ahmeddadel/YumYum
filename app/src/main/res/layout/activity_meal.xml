@@ -124,6 +124,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linear_layout_category_area" />
 
+            <ImageView
+                android:id="@+id/iv_youtube"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:contentDescription="@string/youtube_video_description"
+                android:src="@drawable/ic_video"
+                app:layout_constraintBottom_toBottomOf="@id/tv_instructions"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_instructions" />
+
             <TextView
                 android:id="@+id/tv_content"
                 android:layout_width="match_parent"
@@ -138,15 +150,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <ImageView
-        android:id="@+id/iv_youtube"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:contentDescription="@string/youtube_video_description"
-        android:src="@drawable/ic_video" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progress_bar"

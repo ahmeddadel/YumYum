@@ -14,6 +14,9 @@ import com.dolla.yumyum.data.pojo.Meal
 import com.dolla.yumyum.databinding.FragmentFavouritesBinding
 import com.dolla.yumyum.ui.activites.MainActivity
 import com.dolla.yumyum.ui.activites.MealActivity
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_ID
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_NAME
+import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_THUMB
 import com.dolla.yumyum.viewModel.HomeViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
@@ -136,22 +139,22 @@ class FavouritesFragment : Fragment() {
     }
 
     private fun onFavouriteMealClick() { // Set the on click listener for the favourite meals
-        favouritesAndSearchAdapter.onFavouriteMealClicked = { favouriteMeal ->
+        favouritesAndSearchAdapter.onFavouriteAndSearchMealClicked = { favouriteMeal ->
             val intent = Intent(
                 activity,
                 MealActivity::class.java
             ) // Create an intent to start the MealActivity
             intent.apply {
                 putExtra(
-                    HomeFragment.MEAL_ID,
+                    MEAL_ID,
                     favouriteMeal.id
                 ) // Put the meal ID in the intent extras
                 putExtra(
-                    HomeFragment.MEAL_NAME,
+                    MEAL_NAME,
                     favouriteMeal.name
                 ) // Put the meal name in the intent extras
                 putExtra(
-                    HomeFragment.MEAL_THUMB,
+                    MEAL_THUMB,
                     favouriteMeal.thumbUrl
                 ) // Put the meal image URL in the intent extras
             }
