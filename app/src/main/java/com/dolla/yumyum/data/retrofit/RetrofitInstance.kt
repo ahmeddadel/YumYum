@@ -1,6 +1,6 @@
 package com.dolla.yumyum.data.retrofit
 
-import com.dolla.yumyum.utils.Constants.BASE_URL
+import com.dolla.yumyum.util.Constants.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

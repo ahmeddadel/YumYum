@@ -1,4 +1,4 @@
-package com.dolla.yumyum.ui.fragments.bottomSheetDialog
+package com.dolla.yumyum.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle

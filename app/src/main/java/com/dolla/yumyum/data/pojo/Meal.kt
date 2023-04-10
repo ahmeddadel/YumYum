@@ -1,8 +1,8 @@
 package com.dolla.yumyum.data.pojo
 
 import androidx.room.Entity
-import com.dolla.yumyum.utils.Constants.PRIMARY_KEY
-import com.dolla.yumyum.utils.Constants.TABLE_NAME
+import com.dolla.yumyum.util.Constants.PRIMARY_KEY
+import com.dolla.yumyum.util.Constants.TABLE_NAME
 import com.google.gson.annotations.SerializedName
 
 @Entity(

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dolla.yumyum.R
 import com.dolla.yumyum.data.db.MealDatabase
+import com.dolla.yumyum.data.db.MealRepository
 import com.dolla.yumyum.data.pojo.Meal
 import com.dolla.yumyum.databinding.ActivityMealBinding
 import com.dolla.yumyum.ui.fragments.HomeFragment.Companion.MEAL_ID
@@ -37,8 +38,10 @@ class MealActivity : AppCompatActivity() {
         // Initialize the MealViewModel
 //        mealViewModel = ViewModelProvider(this)[MealViewModel::class.java]
         val mealDatabase = MealDatabase.getInstance(this) // Get the instance of the MealDatabase
+        val mealDao = mealDatabase.getMealDao() // Get the instance of the MealDao
+        val mealRepository = MealRepository(mealDao) // Create the MealRepository object
         val mealViewModelFactory =
-            MealViewModelFactory(mealDatabase) // Create the MealViewModelFactory
+            MealViewModelFactory(mealRepository) // Create the MealViewModelFactory
         mealViewModel = ViewModelProvider(
             this,
             mealViewModelFactory

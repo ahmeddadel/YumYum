@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dolla.yumyum.data.db.MealDatabase
+import com.dolla.yumyum.data.db.MealRepository
 import com.dolla.yumyum.data.pojo.Meal
 import com.dolla.yumyum.data.retrofit.RetrofitInstance
 import kotlinx.coroutines.*
@@ -16,7 +16,7 @@ import kotlinx.coroutines.*
  * @author adell
  */
 
-class MealViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
+class MealViewModel(private val mealRepository: MealRepository) : ViewModel() {
 
     private var job: Job? = null
 
@@ -52,20 +52,17 @@ class MealViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
 
     fun insertMealIntoDb(meal: Meal) { // This function will insert the meal into the database
         viewModelScope.launch { // viewModelScope is used to launch a coroutine in the ViewModel
-            mealDatabase.getMealDao()
-                .upsertMeal(meal) // upsertMeal is used to update or insert the meal into the database
+            mealRepository.upsertMeal(meal) // upsertMeal is used to update or insert the meal into the database
         }
     }
 
     fun deleteMealFromDb(meal: Meal) { // This function will delete the meal from the database
         viewModelScope.launch { // viewModelScope is used to launch a coroutine in the ViewModel
-            mealDatabase.getMealDao()
-                .deleteMeal(meal) // deleteMeal is used to delete the meal from the database
+            mealRepository.deleteMeal(meal) // deleteMeal is used to delete the meal from the database
         }
     }
 
     fun getMealByIdFromDb(id: String): LiveData<Meal> { // This function will get the meal from the database by id
-        return mealDatabase.getMealDao()
-            .getMealById(id) // getMealById is used to get the meal from the database by id
+        return mealRepository.getMealById(id) // getMealById is used to get the meal from the database by id
     }
 }

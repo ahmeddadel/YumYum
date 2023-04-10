@@ -3,7 +3,7 @@ package com.dolla.yumyum.data.db
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dolla.yumyum.data.pojo.Meal
-import com.dolla.yumyum.utils.Constants.TABLE_NAME
+import com.dolla.yumyum.util.Constants.TABLE_NAME
 
 /**
  * @created 03/04/2023 - 7:37 PM

@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.dolla.yumyum.data.pojo.Meal
-import com.dolla.yumyum.utils.Constants.DATABASE_NAME
+import com.dolla.yumyum.util.Constants.DATABASE_NAME
 
 /**
  * @created 03/04/2023 - 7:45 PM

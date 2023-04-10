@@ -20,7 +20,6 @@ import com.dolla.yumyum.databinding.FragmentHomeBinding
 import com.dolla.yumyum.ui.activites.CategoryMealsActivity
 import com.dolla.yumyum.ui.activites.MainActivity
 import com.dolla.yumyum.ui.activites.MealActivity
-import com.dolla.yumyum.ui.fragments.bottomSheetDialog.MealBottomSheetDialogFragment
 import com.dolla.yumyum.viewModel.HomeViewModel
 
 class HomeFragment : Fragment() {

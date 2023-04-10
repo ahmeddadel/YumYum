@@ -5,12 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dolla.yumyum.data.db.MealDatabase
+import com.dolla.yumyum.data.db.MealRepository
 import com.dolla.yumyum.data.pojo.CategoryList
 import com.dolla.yumyum.data.pojo.Meal
 import com.dolla.yumyum.data.pojo.PopularMealList
 import com.dolla.yumyum.data.retrofit.RetrofitInstance
-import com.dolla.yumyum.utils.Constants.SEAFOOD_CATEGORY
+import com.dolla.yumyum.util.Constants.SEAFOOD_CATEGORY
 import kotlinx.coroutines.*
 
 /**
@@ -19,7 +19,7 @@ import kotlinx.coroutines.*
  * @author adell
  */
 
-class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
+class HomeViewModel(private val mealRepository: MealRepository) : ViewModel() {
 
     private var job: Job? = null
 
@@ -40,8 +40,8 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
     val categoriesLiveData: LiveData<CategoryList?>
         get() = _categoriesLiveData // This is a read-only property that returns the value of the private property _categoriesLiveData
 
-    private val _favouriteMealsLiveData = mealDatabase.getMealDao()
-        .getAllMeals() // This will get all the meals from the database and store it in the _favouriteMealsLiveData
+    private val _favouriteMealsLiveData =
+        mealRepository.allMeals// This will get all the meals from the database and store it in the _favouriteMealsLiveData
     val favouriteMealsLiveData: LiveData<List<Meal>>
         get() = _favouriteMealsLiveData // This is a read-only property that returns the value of the private property _favouriteMealsLiveData
 
@@ -183,14 +183,14 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
 
     fun deleteMealFromDb(meal: Meal) { // This function will delete the meal from the database
         viewModelScope.launch { // viewModelScope is used to launch a coroutine in the ViewModel
-            mealDatabase.getMealDao()
+            mealRepository
                 .deleteMeal(meal) // deleteMeal is used to delete the meal from the database
         }
     }
 
     fun insertMealIntoDb(meal: Meal) { // This function will insert the meal into the database
         viewModelScope.launch { // viewModelScope is used to launch a coroutine in the ViewModel
-            mealDatabase.getMealDao()
+            mealRepository
                 .upsertMeal(meal) // upsertMeal is used to update or insert the meal into the database
         }
     }

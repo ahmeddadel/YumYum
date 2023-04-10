@@ -7,6 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.dolla.yumyum.R
 import com.dolla.yumyum.data.db.MealDatabase
+import com.dolla.yumyum.data.db.MealRepository
 import com.dolla.yumyum.databinding.ActivityMainBinding
 import com.dolla.yumyum.viewModel.HomeViewModel
 import com.dolla.yumyum.viewModel.HomeViewModelFactory
@@ -17,8 +18,10 @@ class MainActivity : AppCompatActivity() {
 
     val viewModel: HomeViewModel by lazy {  // Lazy initialization means that the value will be initialized only when it is used for the first time.
         val mealDatabase = MealDatabase.getInstance(this) // Get the instance of the MealDatabase
+        val mealDao = mealDatabase.getMealDao() // Get the instance of the MealDao
+        val mealRepository = MealRepository(mealDao) // Create the MealRepository object
         val homeViewModelFactory =
-            HomeViewModelFactory(mealDatabase) // Create the HomeViewModelFactory
+            HomeViewModelFactory(mealRepository) // Create the HomeViewModelFactory
 
         ViewModelProvider(
             this,

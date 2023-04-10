@@ -1,4 +1,4 @@
-package com.dolla.yumyum.utils
+package com.dolla.yumyum.util
 
 /**
  * @created 26/03/2023 - 9:27 PM
