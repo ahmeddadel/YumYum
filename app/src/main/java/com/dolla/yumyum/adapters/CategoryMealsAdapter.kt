@@ -2,6 +2,7 @@ package com.dolla.yumyum.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dolla.yumyum.data.pojo.MealsByCategory
@@ -43,6 +44,15 @@ class CategoryMealsAdapter :
         holder: CategoryMealsViewHolder,
         position: Int
     ) { // This function will be called to bind the data to the view holder object instance
+
+        // set animation to the view holder item view (card view) when it is created for the first time only
+        holder.itemView.startAnimation(
+            AnimationUtils.loadAnimation(
+                holder.itemView.context,
+                android.R.anim.slide_in_left
+            )
+        )
+
         Glide.with(holder.itemView) // holder.itemView is the root view of the item view in the RecyclerView (popular_items.xml)
             .load(categoryMealsList[position].thumbUrl) // Load the image from the URL
             .into(holder.binding.ivMeal) // Set the image to the ImageView

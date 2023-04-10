@@ -2,6 +2,7 @@ package com.dolla.yumyum.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -62,6 +63,15 @@ class FavouritesAndSearchAdapter :
         position: Int
     ) { // This function will be called to bind the data to the view holder object instance
         val meal = differ.currentList[position] // Get the meal at the current position
+
+        // set animation to the view holder item view (card view) when it is created for the first time only
+        holder.itemView.startAnimation(
+            AnimationUtils.loadAnimation(
+                holder.itemView.context,
+                android.R.anim.slide_in_left
+            )
+        )
+
         Glide.with(holder.itemView) // holder.itemView is the root view of the item view in the RecyclerView (category_meal_item.xml)
             .load(meal.thumbUrl) // Load the image from the URL
             .into(holder.binding.ivMeal) // Set the image to the ImageView

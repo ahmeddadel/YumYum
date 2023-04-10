@@ -32,12 +32,13 @@ class CategoryMealsActivity : AppCompatActivity() {
         // Initialize the categoryMealsViewModel
         categoryMealsViewModel = ViewModelProvider(this)[CategoryMealsViewModel::class.java]
 
-        // Prepare the RecyclerView for the category meals
-        prepareCategoryMealsRecyclerView()
+        // Initialize the favouritesAdapter object instance
+        categoryMealsAdapter = CategoryMealsAdapter()
     }
 
     override fun onStart() { // Called when the activity is about to become visible.
         super.onStart()
+        prepareCategoryMealsRecyclerView() // Prepare the RecyclerView for the category meals
         getCategoryNameFromIntent() // Get the category name from the intent
         categoryMealsViewModel.getMealsByCategory(categoryName) // Call the getMealsByCategory() method of the categoryMealsViewModel (fire the API call)
         observeCategoryMeals() // Observe the category meals
@@ -45,23 +46,22 @@ class CategoryMealsActivity : AppCompatActivity() {
     }
 
     private fun prepareCategoryMealsRecyclerView() { // Prepare the RecyclerView for the category meals
-        categoryMealsAdapter = CategoryMealsAdapter() // Initialize the categoryMealsAdapter
-
         binding.rvCategoryMeals.apply {  // Apply the following code to the binding object's rvCategoryMeals
             layoutManager = GridLayoutManager(
                 this@CategoryMealsActivity,
-                2
+                2,
+                GridLayoutManager.VERTICAL,
+                false
             ) // Set the layout manager to a GridLayoutManager
             adapter = categoryMealsAdapter // Set the adapter to the categoryMealsAdapter
             setHasFixedSize(true) // Set the hasFixedSize property to true (to improve performance
-
         }
     }
 
     private fun getCategoryNameFromIntent() { // Get the category name from the intent
         val intent = intent // getIntent() method
-        categoryName =
-            intent.getStringExtra(CATEGORY_NAME)!! // Get the category name from the intent
+        intent.getStringExtra(CATEGORY_NAME)
+            ?.let { categoryName = it } // Get the category name from the intent
     }
 
     private fun observeCategoryMeals() { // Observe the categoryMealsViewModel's categoryMeals LiveData
