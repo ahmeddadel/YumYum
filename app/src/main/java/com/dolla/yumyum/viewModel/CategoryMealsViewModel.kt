@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dolla.yumyum.data.pojo.MealsByCategoryList
 import com.dolla.yumyum.data.retrofit.RetrofitInstance
+import com.dolla.yumyum.util.Constants.RETRY_DELAY_MILLIS
 import kotlinx.coroutines.*
 
 /**
@@ -29,21 +30,37 @@ class CategoryMealsViewModel : ViewModel() {
     fun getMealsByCategory(category: String) { // This function will make the API call to get the meals by category
         job =
             CoroutineScope(Dispatchers.IO).launch { // Create a coroutine scope and launch a coroutine in the IO dispatcher to make the API call
-                val mealsByCategoryResponse =
-                    RetrofitInstance.mealApi.getMealByCategory(category) // Make the API call
-                withContext(Dispatchers.Main) { // Switch to the main dispatcher to set the value of the categoryMealsLiveData
-                    if (mealsByCategoryResponse.isSuccessful) { // If the response is successful, get the list of meals from the response body
-                        val mealsByCategoryList =
-                            mealsByCategoryResponse.body() // The response body is a MealsByCategoryList object
-                        _categoryMealsLiveData.value =
-                            mealsByCategoryList // Set the value of the categoryMealsLiveData to the list of meals by category
-                    } else {
-                        Log.d(
-                            "CategoryMealsViewModel_getMealsByCategory()",
-                            mealsByCategoryResponse.message()
-                        ) // If the API call fails, log the error message
+                while (true) {
+                    try {
+                        val mealsByCategoryResponse =
+                            RetrofitInstance.mealApi.getMealByCategory(category) // Make the API call
+                        withContext(Dispatchers.Main) { // Switch to the main dispatcher to set the value of the categoryMealsLiveData
+                            if (mealsByCategoryResponse.isSuccessful) { // If the response is successful, get the list of meals from the response body
+                                val mealsByCategoryList =
+                                    mealsByCategoryResponse.body() // The response body is a MealsByCategoryList object
+                                _categoryMealsLiveData.value =
+                                    mealsByCategoryList // Set the value of the categoryMealsLiveData to the list of meals by category
+                            } else {
+                                Log.d(
+                                    "CategoryMealsViewModel_getMealsByCategory()",
+                                    mealsByCategoryResponse.message()
+                                ) // If the API call fails, log the error message
+                            }
+                        }
+                        break // if the API call is successful, break out of the loop
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            _categoryMealsLiveData.value =
+                                null // If the API call fails, set the value of the categoryMealsLiveData to null
+                            Log.d(
+                                "CategoryMealsViewModel_getMealsByCategory()",
+                                e.message.toString()
+                            )
+                        }
                     }
+                    delay(RETRY_DELAY_MILLIS)
                 }
             }
+
     }
 }

@@ -61,18 +61,18 @@ class MealBottomSheetDialogFragment : BottomSheetDialogFragment() {
     private fun observeMealBottomSheetDialog() { // Observe the bottomSheetMealLiveData of the HomeViewModel
         viewModel.mealBottomSheetDialogLiveData.observe(viewLifecycleOwner) { bottomSheetMeal ->
             Glide.with(this@MealBottomSheetDialogFragment) // this@MealBottomSheetFragment is the context of the fragment
-                .load(bottomSheetMeal.thumbUrl) // Load the meal image from the URL
+                .load(bottomSheetMeal?.thumbUrl) // Load the meal image from the URL
                 .into(binding.ivBottomSheetMealImage) // Set the image to the ImageView
 
             binding.tvBottomSheetMealName.text =
-                bottomSheetMeal.name // Set the meal name to the TextView
+                bottomSheetMeal?.name // Set the meal name to the TextView
             binding.tvBottomSheetMealCategory.text =
-                bottomSheetMeal.category // Set the meal category to the TextView
+                bottomSheetMeal?.category // Set the meal category to the TextView
             binding.tvBottomSheetMealLocation.text =
-                bottomSheetMeal.area // Set the meal area to the TextView
+                bottomSheetMeal?.area // Set the meal area to the TextView
 
-            mealName = bottomSheetMeal.name // Set the meal name to the mealName variable
-            mealThumb = bottomSheetMeal.thumbUrl // Set the meal thumbUrl to the mealThumb variable
+            mealName = bottomSheetMeal?.name // Set the meal name to the mealName variable
+            mealThumb = bottomSheetMeal?.thumbUrl // Set the meal thumbUrl to the mealThumb variable
         }
     }
 

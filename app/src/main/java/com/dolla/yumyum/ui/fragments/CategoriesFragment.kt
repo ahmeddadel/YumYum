@@ -66,9 +66,12 @@ class CategoriesFragment : Fragment() {
 
     private fun observeCategories() { // Observe the categories LiveData in the HomeViewModel
         viewModel.categoriesLiveData.observe(viewLifecycleOwner) { categories -> // Observe the categories LiveData
-            val categoriesList = ArrayList<Category>() // Initialize the categoriesList
-            categories?.categories?.let { categoriesList.addAll(it) } // Add the categories to the categoriesList
-            categoriesAdapter.setCategoriesList(categoriesList) // Set the categoriesList in the categoriesAdapter
+            categories?.let { // If the categories is not null
+                binding.progressBarCategories.visibility = View.GONE // Hide the progress bar
+                val categoriesList = ArrayList<Category>() // Initialize the categoriesList
+                categories.categories.let { categoriesList.addAll(it) } // Add the categories to the categoriesList
+                categoriesAdapter.setCategoriesList(categoriesList) // Set the categoriesList in the categoriesAdapter
+            }
         }
     }
 

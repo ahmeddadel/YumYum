@@ -2,6 +2,7 @@ package com.dolla.yumyum.ui.activites
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View.GONE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -65,12 +66,17 @@ class CategoryMealsActivity : AppCompatActivity() {
 
     private fun observeCategoryMeals() { // Observe the categoryMealsViewModel's categoryMeals LiveData
         categoryMealsViewModel.categoryMealsLiveData.observe(this) { categoryMeals ->
-            val mealCountText = "${categoryName}: ${categoryMeals?.meals?.size}"
-            binding.tvCategoryMealsCount.text =
-                mealCountText // Set the text of the binding object's tvCategoryMealsCount to the mealCountText
-            val categoryMealsList = ArrayList<MealsByCategory>() // Initialize the categoryMealsList
-            categoryMeals?.meals?.let { categoryMealsList.addAll(it) } // Add the categoryMeals to the categoryMealsList
-            categoryMealsAdapter.setCategoryMealsList(categoryMealsList) // Set the categoryMealsList of the categoryMealsAdapter
+            binding.tvCategoryMealsCount.text = categoryName
+            categoryMeals?.let {
+                binding.progressBarCategoryMeals.visibility = GONE // Hide the progress bar
+                val mealCountText = "${categoryName}: ${categoryMeals.meals.size}"
+                binding.tvCategoryMealsCount.text =
+                    mealCountText // Set the text of the binding object's tvCategoryMealsCount to the mealCountText
+                val categoryMealsList =
+                    ArrayList<MealsByCategory>() // Initialize the categoryMealsList
+                categoryMeals.meals.let { categoryMealsList.addAll(it) } // Add the categoryMeals to the categoryMealsList
+                categoryMealsAdapter.setCategoryMealsList(categoryMealsList) // Set the categoryMealsList of the categoryMealsAdapter
+            }
         }
     }
 

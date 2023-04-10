@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -91,11 +93,14 @@ class HomeFragment : Fragment() {
 
     private fun observeRandomMeal() { // Observe the randomMealLiveData of the HomeViewModel
         viewModel.randomMealLiveData.observe(viewLifecycleOwner) { meal ->
-            Glide.with(this@HomeFragment) // this@HomeFragment is the context of the fragment
-                .load(meal.thumbUrl) // Load the meal image from the URL
-                .into(binding.ivRandomMeal) // Set the image to the ImageView
+            meal?.let { // Check if the meal object is not null
+                binding.progressBarRandomMeal.visibility = GONE // Hide the progress bar
+                Glide.with(this@HomeFragment) // this@HomeFragment is the context of the fragment
+                    .load(meal.thumbUrl) // Load the meal image from the URL
+                    .into(binding.ivRandomMeal) // Set the image to the ImageView
 
-            this.randomMeal = meal // Set the randomMeal object to the meal object
+                this.randomMeal = meal // Set the randomMeal object to the meal object
+            }
         }
     }
 
@@ -145,10 +150,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun observePopularMeals() { // Observe the popularMealsLiveData of the HomeViewModel
-        viewModel.popularMealsLiveData.observe(viewLifecycleOwner) { meals ->
-            val mealsList = ArrayList<PopularMeal>() // Initialize the mealsList
-            meals?.meals?.let { mealsList.addAll(it) } // Add the meals to the mealsList
-            popularMealsAdapter.setMealsList(mealsList) // Set the mealsList to the popularMealsAdapter
+        viewModel.popularMealsLiveData.observe(viewLifecycleOwner) { popularMeals ->
+            popularMeals?.let { // Check if the meals object is not null
+                binding.progressBarPopularItems.visibility = GONE // Hide the progress bar
+                val mealsList = ArrayList<PopularMeal>() // Initialize the mealsList
+                popularMeals.meals.let { mealsList.addAll(it) } // Add the meals to the mealsList
+                popularMealsAdapter.setMealsList(mealsList) // Set the mealsList to the popularMealsAdapter
+            }
         }
     }
 
@@ -195,9 +203,13 @@ class HomeFragment : Fragment() {
 
     private fun observeCategories() { // Observe the categoriesLiveData of the HomeViewModel
         viewModel.categoriesLiveData.observe(viewLifecycleOwner) { categories ->
-            val categoriesList = ArrayList<Category>() // Initialize the categoriesList
-            categories?.categories?.let { categoriesList.addAll(it) } // Add the categories to the categoriesList
-            categoriesAdapter.setCategoriesList(categoriesList) // Set the categoriesList to the categoriesAdapter
+            categories?.let { // Check if the categories object is not null
+                binding.progressBarCategories.visibility = GONE // Hide the progress bar
+                binding.cardCategories.visibility = VISIBLE // Show the RecyclerView
+                val categoriesList = ArrayList<Category>() // Initialize the categoriesList
+                categories.categories.let { categoriesList.addAll(it) } // Add the categories to the categoriesList
+                categoriesAdapter.setCategoriesList(categoriesList) // Set the categoriesList to the categoriesAdapter
+            }
         }
     }
 

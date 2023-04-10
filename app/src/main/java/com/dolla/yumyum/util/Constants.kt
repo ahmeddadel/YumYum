@@ -18,4 +18,5 @@ object Constants { // Object that contains all the constants used in the app (Si
     const val TABLE_NAME = "mealInformation" // Table name for the Room Database
     const val PRIMARY_KEY = "id" // Primary key for the Room Database
     const val DATABASE_NAME = "mealDatabase" // Database name for the Room Database
+    const val RETRY_DELAY_MILLIS = 3000L // Delay time for the retry function
 }

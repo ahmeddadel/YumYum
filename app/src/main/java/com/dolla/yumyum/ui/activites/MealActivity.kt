@@ -61,11 +61,17 @@ class MealActivity : AppCompatActivity() {
 
     private fun getMealDetailsFromIntent() { // Get the meal details from the intent
         val intent = intent // getIntent() method
-        mealId = intent.getStringExtra(MEAL_ID)!! // Get the meal ID from the intent extras
-        mealName = intent.getStringExtra(MEAL_NAME)!! // Get the meal name from the intent extras
-        mealThumb =
-            intent.getStringExtra(MEAL_THUMB)!! // Get the meal thumbnail from the intent extras
 
+        intent.getStringExtra(MEAL_ID)?.let { // Get the meal ID from the intent extras
+            mealId = it
+        }
+        intent.getStringExtra(MEAL_NAME)?.let { // Get the meal name from the intent extras
+            mealName = it
+        }
+        intent.getStringExtra(MEAL_THUMB)
+            ?.let { // Get the meal thumbnail from the intent extras
+                mealThumb = it
+            }
     }
 
     private fun setMealDetailsIntoUI() { // Set the meal details into the UI
@@ -96,16 +102,18 @@ class MealActivity : AppCompatActivity() {
 
     private fun observeMealDetails() { // Observe the mealDetailsLiveData of the MealViewModel
         mealViewModel.mealDetailsLiveData.observe(this) { meal ->
-            onSuccess() // Hide the loading progress bar when the API call is successful
+            meal?.let { // if the meal is not null
+                onSuccess() // Hide the loading progress bar when the API call is successful
 
-            binding.tvCategory.text = meal.category // Set the meal category into the TextView
-            binding.tvArea.text = meal.area // Set the meal area into the TextView
-            binding.tvContent.text =
-                meal.instructions // Set the meal instructions into the TextView
+                binding.tvCategory.text = meal.category // Set the meal category into the TextView
+                binding.tvArea.text = meal.area // Set the meal area into the TextView
+                binding.tvContent.text =
+                    meal.instructions // Set the meal instructions into the TextView
 
-            isFavouriteMeal() // Check if the meal is a favourite meal to set the FAB icon
+                isFavouriteMeal() // Check if the meal is a favourite meal to set the FAB icon
 
-            this.meal = meal // Set the meal object to the meal object from the API call
+                this.meal = meal // Set the meal object to the meal object from the API call
+            }
         }
     }
 

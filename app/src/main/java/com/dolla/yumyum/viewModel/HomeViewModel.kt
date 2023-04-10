@@ -10,6 +10,7 @@ import com.dolla.yumyum.data.pojo.CategoryList
 import com.dolla.yumyum.data.pojo.Meal
 import com.dolla.yumyum.data.pojo.PopularMealList
 import com.dolla.yumyum.data.retrofit.RetrofitInstance
+import com.dolla.yumyum.util.Constants.RETRY_DELAY_MILLIS
 import com.dolla.yumyum.util.Constants.SEAFOOD_CATEGORY
 import kotlinx.coroutines.*
 
@@ -28,8 +29,8 @@ class HomeViewModel(private val mealRepository: MealRepository) : ViewModel() {
         job?.cancel() // This will cancel the job when the view model is destroyed
     }
 
-    private val _randomMealLiveData = MutableLiveData<Meal>()
-    val randomMealLiveData: LiveData<Meal>
+    private val _randomMealLiveData = MutableLiveData<Meal?>()
+    val randomMealLiveData: LiveData<Meal?>
         get() = _randomMealLiveData // This is a read-only property that returns the value of the private property _randomMealLiveData
 
     private val _popularMealsLiveData = MutableLiveData<PopularMealList?>()
@@ -50,8 +51,8 @@ class HomeViewModel(private val mealRepository: MealRepository) : ViewModel() {
     val noFavouriteMealsLiveData: LiveData<Boolean>
         get() = _noFavouriteMealsLiveData // This is a read-only property that returns the value of the private property _noFavouriteMealsLiveData
 
-    private val _mealBottomSheetDialogLiveData = MutableLiveData<Meal>()
-    val mealBottomSheetDialogLiveData: LiveData<Meal>
+    private val _mealBottomSheetDialogLiveData = MutableLiveData<Meal?>()
+    val mealBottomSheetDialogLiveData: LiveData<Meal?>
         get() = _mealBottomSheetDialogLiveData // This is a read-only property that returns the value of the private property _bottomSheetMealLiveData
 
     private val _searchedMealLiveData = MutableLiveData<List<Meal>?>()
@@ -69,22 +70,34 @@ class HomeViewModel(private val mealRepository: MealRepository) : ViewModel() {
 
         job =
             CoroutineScope(Dispatchers.IO).launch { // Create a coroutine scope and launch a coroutine in the IO dispatcher to make the API call
-                val randomMealResponse =
-                    RetrofitInstance.mealApi.getRandomMeal() // Make the API call
-                withContext(Dispatchers.Main) { // Switch to the main dispatcher to set the value of the randomMealLiveData
-                    if (randomMealResponse.isSuccessful) { // If the response is successful, get the list of meals from the response body
-                        val randomMealList =
-                            randomMealResponse.body()?.meals // The response body is a MealList object
-                        _randomMealLiveData.value =
-                            randomMealList?.get(0) // Set the value of the randomMealLiveData to the first meal in the list (the random meal)
-                        saveStateRandomMeal =
-                            randomMealList?.get(0) // Save the state of the random meal
-                    } else {
-                        Log.d(
-                            "HomeFragment_getRandomMeal()",
-                            randomMealResponse.message()
-                        ) // If the API call fails, log the error message
+                while (true) {
+                    try {
+                        val randomMealResponse =
+                            RetrofitInstance.mealApi.getRandomMeal() // Make the API call
+                        withContext(Dispatchers.Main) { // Switch to the main dispatcher to set the value of the randomMealLiveData
+                            if (randomMealResponse.isSuccessful) { // If the response is successful, get the list of meals from the response body
+                                val randomMealList =
+                                    randomMealResponse.body()?.meals // The response body is a MealList object
+                                _randomMealLiveData.value =
+                                    randomMealList?.get(0) // Set the value of the randomMealLiveData to the first meal in the list (the random meal)
+                                saveStateRandomMeal =
+                                    randomMealList?.get(0) // Save the state of the random meal
+                            } else {
+                                Log.d(
+                                    "HomeFragment_getRandomMeal()",
+                                    randomMealResponse.message()
+                                ) // If the API call fails, log the error message
+                            }
+                        }
+                        break // if the API call is successful, break out of the loop
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            _randomMealLiveData.value =
+                                null // If there is an error, set the value of the randomMealLiveData to null
+                            Log.d("HomeFragment_getRandomMeal()", e.message.toString())
+                        }
                     }
+                    delay(RETRY_DELAY_MILLIS) // If the API call fails, delay the retry function by the retryDelayMillis
                 }
             }
     }
@@ -92,20 +105,32 @@ class HomeViewModel(private val mealRepository: MealRepository) : ViewModel() {
     fun getPopularMeals() { // This function will make the API call to get the popular meals
         job =
             CoroutineScope(Dispatchers.IO).launch { // Create a coroutine scope and launch a coroutine in the IO dispatcher to make the API call
-                val popularMealResponse =
-                    RetrofitInstance.mealApi.getPopularMeals(SEAFOOD_CATEGORY) // Make the API call
-                withContext(Dispatchers.Main) { // Switch to the main dispatcher to set the value of the popularMealsLiveData
-                    if (popularMealResponse.isSuccessful) { // If the response is successful, get the list of meals from the response body
-                        val popularMealList =
-                            popularMealResponse.body() // The response body is a PopularMealList object
-                        _popularMealsLiveData.value =
-                            popularMealList // Set the value of the popularMealsLiveData to the list of popular meals
-                    } else {
-                        Log.d(
-                            "HomeFragment_getPopularMeals()",
-                            popularMealResponse.message()
-                        ) // If the API call fails, log the error message
+                while (true) {
+                    try {
+                        val popularMealResponse =
+                            RetrofitInstance.mealApi.getPopularMeals(SEAFOOD_CATEGORY) // Make the API call
+                        withContext(Dispatchers.Main) { // Switch to the main dispatcher to set the value of the popularMealsLiveData
+                            if (popularMealResponse.isSuccessful) { // If the response is successful, get the list of meals from the response body
+                                val popularMealList =
+                                    popularMealResponse.body() // The response body is a PopularMealList object
+                                _popularMealsLiveData.value =
+                                    popularMealList // Set the value of the popularMealsLiveData to the list of popular meals
+                            } else {
+                                Log.d(
+                                    "HomeFragment_getPopularMeals()",
+                                    popularMealResponse.message()
+                                ) // If the API call fails, log the error message
+                            }
+                        }
+                        break // if the API call is successful, break out of the loop
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            _popularMealsLiveData.value =
+                                null // If there is an error, set the value of the popularMealsLiveData to null
+                            Log.d("HomeFragment_getPopularMeals()", e.message.toString())
+                        }
                     }
+                    delay(RETRY_DELAY_MILLIS) // If the API call fails, delay the retry function by the retryDelayMillis
                 }
             }
     }
@@ -113,20 +138,32 @@ class HomeViewModel(private val mealRepository: MealRepository) : ViewModel() {
     fun getCategories() { // This function will make the API call to get all the categories
         job =
             CoroutineScope(Dispatchers.IO).launch { // Create a coroutine scope and launch a coroutine in the IO dispatcher to make the API call
-                val categoryResponse =
-                    RetrofitInstance.mealApi.getCategories() // Make the API call
-                withContext(Dispatchers.Main) { // Switch to the main dispatcher to set the value of the categoriesLiveData
-                    if (categoryResponse.isSuccessful) { // If the response is successful, get the list of meals from the response body
-                        val categoryList =
-                            categoryResponse.body() // The response body is a CategoryList object
-                        _categoriesLiveData.value =
-                            categoryList // Set the value of the categoriesLiveData to the list of categories
-                    } else {
-                        Log.d(
-                            "HomeFragment_getCategories()",
-                            categoryResponse.message()
-                        ) // If the API call fails, log the error message
+                while (true) {
+                    try {
+                        val categoryResponse =
+                            RetrofitInstance.mealApi.getCategories() // Make the API call
+                        withContext(Dispatchers.Main) { // Switch to the main dispatcher to set the value of the categoriesLiveData
+                            if (categoryResponse.isSuccessful) { // If the response is successful, get the list of meals from the response body
+                                val categoryList =
+                                    categoryResponse.body() // The response body is a CategoryList object
+                                _categoriesLiveData.value =
+                                    categoryList // Set the value of the categoriesLiveData to the list of categories
+                            } else {
+                                Log.d(
+                                    "HomeFragment_getCategories()",
+                                    categoryResponse.message()
+                                ) // If the API call fails, log the error message
+                            }
+                        }
+                        break // if the API call is successful, break out of the loop
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            _categoriesLiveData.value =
+                                null // If there is an error, set the value of the categoriesLiveData to null
+                            Log.d("HomeFragment_getCategories()", e.message.toString())
+                        }
                     }
+                    delay(RETRY_DELAY_MILLIS) // If the API call fails, delay the retry function by the retryDelayMillis
                 }
             }
     }
@@ -134,20 +171,32 @@ class HomeViewModel(private val mealRepository: MealRepository) : ViewModel() {
     fun getMealById(id: String) { // This function will make the API call to get a meal by its ID
         job =
             CoroutineScope(Dispatchers.IO).launch { // Create a coroutine scope and launch a coroutine in the IO dispatcher to make the API call
-                val mealResponse =
-                    RetrofitInstance.mealApi.getMealById(id) // Make the API call
-                withContext(Dispatchers.Main) { // Switch to the main dispatcher to set the value of the mealBottomSheetDialogLiveData
-                    if (mealResponse.isSuccessful) { // If the response is successful, get the list of meals from the response body
-                        val mealList =
-                            mealResponse.body()?.meals // The response body is a MealList object
-                        _mealBottomSheetDialogLiveData.value =
-                            mealList?.get(0) // Set the value of the mealBottomSheetDialogLiveData to the first meal in the list (the meal with the specified ID)
-                    } else {
-                        Log.d(
-                            "HomeFragment_getMealById()",
-                            mealResponse.message()
-                        ) // If the API call fails, log the error message
+                while (true) {
+                    try {
+                        val mealResponse =
+                            RetrofitInstance.mealApi.getMealById(id) // Make the API call
+                        withContext(Dispatchers.Main) { // Switch to the main dispatcher to set the value of the mealBottomSheetDialogLiveData
+                            if (mealResponse.isSuccessful) { // If the response is successful, get the list of meals from the response body
+                                val mealList =
+                                    mealResponse.body()?.meals // The response body is a MealList object
+                                _mealBottomSheetDialogLiveData.value =
+                                    mealList?.get(0) // Set the value of the mealBottomSheetDialogLiveData to the first meal in the list (the meal with the specified ID)
+                            } else {
+                                Log.d(
+                                    "HomeFragment_getMealById()",
+                                    mealResponse.message()
+                                ) // If the API call fails, log the error message
+                            }
+                        }
+                        break // if the API call is successful, break out of the loop
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            _mealBottomSheetDialogLiveData.value =
+                                null // If there is an error, set the value of the mealBottomSheetDialogLiveData to null
+                            Log.d("HomeFragment_getMealById()", e.message.toString())
+                        }
                     }
+                    delay(RETRY_DELAY_MILLIS) // If the API call fails, delay the retry function by the retryDelayMillis
                 }
             }
     }
@@ -155,20 +204,32 @@ class HomeViewModel(private val mealRepository: MealRepository) : ViewModel() {
     fun searchMealByName(name: String) { // This function will make the API call to search a meal by its name
         job =
             CoroutineScope(Dispatchers.IO).launch { // Create a coroutine scope and launch a coroutine in the IO dispatcher to make the API call
-                val mealResponse =
-                    RetrofitInstance.mealApi.searchMealByName(name) // Make the API call
-                withContext(Dispatchers.Main) { // Switch to the main dispatcher to set the value of the searchedMealLiveData
-                    if (mealResponse.isSuccessful) { // If the response is successful, get the list of meals from the response body
-                        val mealList =
-                            mealResponse.body() // The response body is a MealList object
-                        _searchedMealLiveData.value =
-                            mealList?.meals // Set the value of the searchedMealLiveData to the list of meals
-                    } else {
-                        Log.d(
-                            "HomeFragment_searchMealByName()",
-                            mealResponse.message()
-                        ) // If the API call fails, log the error message
+                while (true) {
+                    try {
+                        val mealResponse =
+                            RetrofitInstance.mealApi.searchMealByName(name) // Make the API call
+                        withContext(Dispatchers.Main) { // Switch to the main dispatcher to set the value of the searchedMealLiveData
+                            if (mealResponse.isSuccessful) { // If the response is successful, get the list of meals from the response body
+                                val mealList =
+                                    mealResponse.body() // The response body is a MealList object
+                                _searchedMealLiveData.value =
+                                    mealList?.meals // Set the value of the searchedMealLiveData to the list of meals
+                            } else {
+                                Log.d(
+                                    "HomeFragment_searchMealByName()",
+                                    mealResponse.message()
+                                ) // If the API call fails, log the error message
+                            }
+                        }
+                        break // if the API call is successful, break out of the loop
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            _searchedMealLiveData.value =
+                                null // If there is an error, set the value of the searchedMealLiveData to null
+                            Log.d("HomeFragment_searchMealByName()", e.message.toString())
+                        }
                     }
+                    delay(RETRY_DELAY_MILLIS) // If the API call fails, delay the retry function by the retryDelayMillis
                 }
             }
     }
