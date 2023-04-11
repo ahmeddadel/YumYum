@@ -11,7 +11,7 @@ import com.dolla.yumyum.data.pojo.Meal
 import com.dolla.yumyum.data.pojo.PopularMealList
 import com.dolla.yumyum.data.retrofit.RetrofitInstance
 import com.dolla.yumyum.util.Constants.RETRY_DELAY_MILLIS
-import com.dolla.yumyum.util.Constants.SEAFOOD_CATEGORY
+import com.dolla.yumyum.util.Constants.getRandomCategory
 import kotlinx.coroutines.*
 
 /**
@@ -108,7 +108,7 @@ class HomeViewModel(private val mealRepository: MealRepository) : ViewModel() {
                 while (true) {
                     try {
                         val popularMealResponse =
-                            RetrofitInstance.mealApi.getPopularMeals(SEAFOOD_CATEGORY) // Make the API call
+                            RetrofitInstance.mealApi.getPopularMeals(getRandomCategory()) // Make the API call
                         withContext(Dispatchers.Main) { // Switch to the main dispatcher to set the value of the popularMealsLiveData
                             if (popularMealResponse.isSuccessful) { // If the response is successful, get the list of meals from the response body
                                 val popularMealList =
