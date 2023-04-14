@@ -1,11 +1,13 @@
-# ___YumYum___  [<img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/download.svg" width="25">](URL-TO-DOWNLOAD-DIRECTORY)
+# ___YumYum___  [<img src="https://cdn-icons-png.flaticon.com/512/4063/4063869.png" width="25">](https://www.mediafire.com/file/jse8cdr6v70az2v/YumYum.apk/file)
 
 
 ___`YumYum`___ is android application designed for foodies who enjoy experimenting with various meals.
 
 > Want delicious `Recipes`? YumYum is the perfect app for you.
 
-## ___YumYum___ Features
+## Preview
+![1](https://github.com/ahmeddadel/YumYum/blob/master/screentshots/1.png?raw=true)  ![2](https://github.com/ahmeddadel/YumYum/blob/master/screentshots/1.png?raw=true)
+## Features
 
 * __`YumYum`__ is built on top of the [TheMealDB](https://www.themealdb.com/) API. 
 
@@ -15,7 +17,7 @@ ___`YumYum`___ is android application designed for foodies who enjoy experimenti
 
 * Save your favourite meals and access them quickly for future reference.
 
-## ___YumYum___ Architecture
+## Architecture
 
 __`YumYum`__ is built using the following technologies/tools:
 
