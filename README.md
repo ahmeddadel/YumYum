@@ -41,7 +41,7 @@
 
 ## Architecture
 
-__ `YumYum` __ is built using the following technologies/tools:
+`YumYum` is built using the following technologies/tools:
 
 * MVVM & LiveData
 
