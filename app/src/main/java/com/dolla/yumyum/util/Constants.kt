@@ -22,7 +22,7 @@ object Constants { // Object that contains all the constants used in the app (Si
     const val RETRY_DELAY_MILLIS = 3000L // Delay time for the retry function
 
     // Function that returns a random category from the list of categories
-    fun getRandomCategory(): String {
+    fun getRandomCategoryName(): String {
         val categoriesList = listOf( // List of all categories
             "Beef",
             "Chicken",

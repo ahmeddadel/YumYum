@@ -11,7 +11,7 @@ import com.dolla.yumyum.data.pojo.Meal
 import com.dolla.yumyum.data.pojo.PopularMealList
 import com.dolla.yumyum.data.retrofit.RetrofitInstance
 import com.dolla.yumyum.util.Constants.RETRY_DELAY_MILLIS
-import com.dolla.yumyum.util.Constants.getRandomCategory
+import com.dolla.yumyum.util.Constants.getRandomCategoryName
 import kotlinx.coroutines.*
 
 /**
@@ -23,6 +23,8 @@ import kotlinx.coroutines.*
 class HomeViewModel(private val mealRepository: MealRepository) : ViewModel() {
 
     private var job: Job? = null
+    private var _randomCategoryName: String // This will get a random category name
+
 
     override fun onCleared() {
         super.onCleared()
@@ -61,6 +63,10 @@ class HomeViewModel(private val mealRepository: MealRepository) : ViewModel() {
 
     private var saveStateRandomMeal: Meal? =
         null // This is a variable that will be used to save the state of the random meal when the fragment is destroyed and recreated
+
+    init { // init block will be called when the view model is created
+        _randomCategoryName = getRandomCategoryName()
+    }
 
     fun getRandomMeal() { // This function will make the API call to get a random meal
         saveStateRandomMeal?.let { randomMeal -> // If the saveStateRandomMeal is not null, set the value of the randomMealLiveData to the saveStateRandomMeal
@@ -108,7 +114,7 @@ class HomeViewModel(private val mealRepository: MealRepository) : ViewModel() {
                 while (true) {
                     try {
                         val popularMealResponse =
-                            RetrofitInstance.mealApi.getPopularMeals(getRandomCategory()) // Make the API call
+                            RetrofitInstance.mealApi.getPopularMeals(_randomCategoryName) // Make the API call
                         withContext(Dispatchers.Main) { // Switch to the main dispatcher to set the value of the popularMealsLiveData
                             if (popularMealResponse.isSuccessful) { // If the response is successful, get the list of meals from the response body
                                 val popularMealList =
