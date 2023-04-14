@@ -1,6 +1,6 @@
 # ___YumYum___  [<img src="https://cdn-icons-png.flaticon.com/512/4063/4063869.png" width="25">](https://www.mediafire.com/file/jse8cdr6v70az2v/YumYum.apk/file)
 
-___ `YumYum` ___ is android application designed for foodies who enjoy experimenting with various meals.
+`YumYum` is android application designed for foodies who enjoy experimenting with various meals.
 
 > Want delicious `Recipes` ? YumYum is the perfect app for you.
 
