@@ -10,18 +10,23 @@ ___ `YumYum` ___ is android application designed for foodies who enjoy experimen
   <tr>
 <td><img src="https://github.com/ahmeddadel/YumYum/blob/master/screentshots/1.png?raw=true" alt="Preview" style="width:300px; height:600px; "></td>
 <td><img src="https://github.com/ahmeddadel/YumYum/blob/master/screentshots/2.png?raw=true" alt="Preview" style="width:300px; height:600px; "></td>
+  </tr>
 
 <td><img src="https://github.com/ahmeddadel/YumYum/blob/master/screentshots/3.png?raw=true" alt="Preview" style="width:300px; height:600px; "></td>
 <td><img src="https://github.com/ahmeddadel/YumYum/blob/master/screentshots/4.png?raw=true" alt="Preview" style="width:300px; height:600px; "></td>
+  </tr>
 
 <td><img src="https://github.com/ahmeddadel/YumYum/blob/master/screentshots/5.png?raw=true" alt="Preview" style="width:300px; height:600px; "></td>
 <td><img src="https://github.com/ahmeddadel/YumYum/blob/master/screentshots/6.png?raw=true" alt="Preview" style="width:300px; height:600px; "></td>
+  </tr>
 
 <td><img src="https://github.com/ahmeddadel/YumYum/blob/master/screentshots/7.png?raw=true" alt="Preview" style="width:300px; height:600px; "></td>
 <td><img src="https://github.com/ahmeddadel/YumYum/blob/master/screentshots/8.png?raw=true" alt="Preview" style="width:300px; height:600px; "></td>
+  </tr>
 
 <td><img src="https://github.com/ahmeddadel/YumYum/blob/master/screentshots/9.png?raw=true" alt="Preview" style="width:300px; height:600px; "></td>
 <td><img src="https://github.com/ahmeddadel/YumYum/blob/master/screentshots/10.png?raw=true" alt="Preview" style="width:300px; height:600px; "></td>
+  </tr>
 </table>
 
 ## Features
